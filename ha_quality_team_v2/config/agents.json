@@ -1,0 +1,103 @@
+{
+  "team": "HA Quality Intelligence Team",
+  "version": "2.0.0-draft",
+  "standard": "HA 6 (effective 2026-10-01)",
+  "model_policy": "Model agnostic: use the organization's authorized model provider only",
+  "privacy_policy": "No identifiable patient data to public models or repository; access authorization and manual de-identification required",
+  "approval_policy": "AI cannot certify a hospital, finalize scoring, issue clinical orders, submit SAR, or externally publish without authorized human review",
+  "agents": [
+    {
+      "id": "director",
+      "role": "HA Quality Director",
+      "responsibilities": "task assignment, guardrails, workflow and final coordination"
+    },
+    {
+      "id": "standards",
+      "role": "HA Standards & Updates",
+      "responsibilities": "source and clause validation; standards edition and revision control"
+    },
+    {
+      "id": "governance",
+      "role": "Organization & Governance",
+      "responsibilities": "Part I organizational direction, staffing, policy and leadership"
+    },
+    {
+      "id": "clinical",
+      "role": "Clinical PCT & Tracer",
+      "responsibilities": "Part III clinical pathways, CLT/PCT and patient tracer"
+    },
+    {
+      "id": "safety",
+      "role": "Patient Safety & Risk",
+      "responsibilities": "incident analysis, prevention, RCA and risk control"
+    },
+    {
+      "id": "improvement",
+      "role": "QI / 3C-DALI / PDSA",
+      "responsibilities": "process design, improvement plans and learning cycles"
+    },
+    {
+      "id": "metrics",
+      "role": "KPI & Outcomes",
+      "responsibilities": "measurement definitions, trends and denominator checks"
+    },
+    {
+      "id": "sar",
+      "role": "SAR & Profile Writer",
+      "responsibilities": "draft 2026 SAR, hospital profile, PCT/CLT documents with traceable evidence"
+    },
+    {
+      "id": "surveyor",
+      "role": "Internal Survey Lead",
+      "responsibilities": "internal visit plan, panel coordination, triangulation and independent review"
+    },
+    {
+      "id": "facilitator",
+      "role": "Surveyor–Facilitator",
+      "responsibilities": "nonpunitive coaching, probing questions, 3C-DALI and empowerment evaluation; cannot approve own coached work"
+    },
+    {
+      "id": "system_surveyor",
+      "role": "System Surveyor",
+      "responsibilities": "Parts I/II, governance, risk and operational system tracer across departments"
+    },
+    {
+      "id": "clinical_surveyor",
+      "role": "Clinical Surveyor",
+      "responsibilities": "Part III, patient safety, CLT/PCT and clinical pathway checks"
+    },
+    {
+      "id": "tracer_specialist",
+      "role": "Tracer & Interview Specialist",
+      "responsibilities": "patient/system tracers, interviews, observation, sample selection and evidence triangulation"
+    },
+    {
+      "id": "followup",
+      "role": "Improvement Follow-up",
+      "responsibilities": "findings registry, named owners, deadline and effectiveness recheck"
+    },
+    {
+      "id": "infosec",
+      "role": "Digital Safety & PDPA",
+      "responsibilities": "information security and patient data protection"
+    },
+    {
+      "id": "auditor",
+      "role": "Independent Evidence Auditor",
+      "responsibilities": "separate review of claims, evidence, scores and source validity"
+    }
+  ],
+  "survey_team": [
+    "surveyor",
+    "facilitator",
+    "system_surveyor",
+    "clinical_surveyor",
+    "tracer_specialist",
+    "followup"
+  ],
+  "survey_modes": [
+    "facilitation",
+    "internal_survey"
+  ],
+  "independence_policy": "Facilitator cannot serve as independent confirming surveyor for the same coached scope. AI findings only; human-approved internal assessment; no official accreditation decision."
+}

@@ -1,0 +1,12 @@
+{
+  "case_id": "PCT-ORTHO-QI-EXAMPLE-001",
+  "title": "วิเคราะห์ช่องว่างระบบป้องกัน VTE ในผู้ป่วยออร์โธปิดิกส์",
+  "department": "PCT Orthopedics",
+  "scope": "clinical",
+  "goal": "ออกแบบรายการหลักฐานและแผนพัฒนาคุณภาพตามมาตรฐาน HA ฉบับที่ 6",
+  "deidentified": true,
+  "verified_standard_clause": false,
+  "evidence": [
+    {"evidence_id":"EV-001","title":"ร่างแนวทางป้องกัน VTE (ตัวอย่างข้อมูลจำลอง)","source":"internal-draft","locator":"ยังไม่แนบไฟล์ต้นฉบับ","date":"2026-10-01","verified":false}
+  ]
+}

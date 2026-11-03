@@ -1,0 +1,53 @@
+{
+  "standard": "HA Hospital and Healthcare Standards, Edition 6",
+  "edition": 6,
+  "effective_date": "2026-10-01",
+  "authority": "สถาบันรับรองคุณภาพสถานพยาบาล (องค์การมหาชน)",
+  "source_policy": "Official HAI documents first; department documents only if verified by authorized staff; label publication, version, page, and date; do not bundle copyrighted standards text without permission.",
+  "official_sources": [
+    {
+      "name": "HA Standards, 6th edition - official overview",
+      "url": "https://www.ha.or.th/th/Contents/%E0%B8%A1%E0%B8%B2%E0%B8%95%E0%B8%A3%E0%B8%90%E0%B8%B2%E0%B8%99%E0%B9%82%E0%B8%A3%E0%B8%87%E0%B8%9E%E0%B8%A2%E0%B8%B2%E0%B8%9A%E0%B8%B2%E0%B8%A5%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%9A%E0%B8%A3%E0%B8%B4%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AA%E0%B8%B8%E0%B8%82%E0%B8%A0%E0%B8%B2%E0%B8%9E%20%28HA%29",
+      "priority": 1
+    },
+    {
+      "name": "HA 6 - self assessment tools and SAR 2026",
+      "url": "https://www.ha.or.th/th/Downloads/%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%A1%E0%B8%B7%E0%B8%AD-%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%81%E0%B8%B2%E0%B8%A8%E0%B9%80%E0%B8%81%E0%B8%B5%E0%B9%88%E0%B8%A2%E0%B8%A7%E0%B8%81%E0%B8%B1%E0%B8%9A%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%A3%E0%B8%B1%E0%B8%9A%E0%B8%A3%E0%B8%AD%E0%B8%87?CategoryID=76&pageNumber=1",
+      "priority": 1
+    },
+    {
+      "name": "HA Quality Knowledge Library",
+      "url": "https://www.ha.or.th/TH/Posts/%E0%B8%AB%E0%B8%99%E0%B8%B1%E0%B8%87%E0%B8%AA%E0%B8%B7%E0%B8%AD%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%9E%E0%B8%B1%E0%B8%92%E0%B8%99%E0%B8%B2%E0%B8%84%E0%B8%B8%E0%B8%93%E0%B8%A0%E0%B8%B2%E0%B8%9E",
+      "priority": 2
+    },
+    {
+      "name": "HAI Surveyor training and empowerment evaluation",
+      "url": "https://www.ha.or.th/TH/Contents/กำหนดการอบรมและสรรหาผู้เยี่ยมสำรวจ",
+      "priority": 1,
+      "kind": "methodology"
+    },
+    {
+      "name": "HAI surveyor ethics and confidentiality",
+      "url": "https://www.ha.or.th/TH/Contents/จริยธรรมผู้เยี่ยมสำรวจ",
+      "priority": 1,
+      "kind": "ethics"
+    },
+    {
+      "name": "HA401 Internal Survey & Coaching for Continuous Quality Journey",
+      "url": "https://www.ha.or.th/TH/Posts/หลักสูตรอบรม-1/Details/1306",
+      "priority": 2,
+      "kind": "training"
+    }
+  ],
+  "documentation_templates_2026": [
+    "Hospital Profile 2026",
+    "SAR 2026 Parts I-IV",
+    "CLT/PCT Profile and Disease/Procedure Self Assessment 2026"
+  ],
+  "methodology": [
+    "3C-DALI",
+    "3P Purpose-Process-Performance",
+    "Human validated HA scoring 1-5"
+  ],
+  "note": "Official methods inspired by HAI; all checklist questions are project-created implementation aids, not official HAI survey tools or mandatory requirements."
+}

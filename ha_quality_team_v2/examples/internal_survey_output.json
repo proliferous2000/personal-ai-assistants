@@ -1,0 +1,146 @@
+{
+  "survey_id": "IS-ORTHO-VTE-DEMO-01",
+  "facility_alias": "โรงพยาบาลตัวอย่าง (ข้อมูลจำลอง)",
+  "mode": "internal_survey",
+  "standard": "Hospital and Healthcare Standards, 6th edition",
+  "standard_effective_date": "2026-10-01",
+  "status": "DRAFT_HUMAN_APPROVAL_REQUIRED",
+  "not_official_hai_survey": true,
+  "official_accreditation_decision": null,
+  "ha_score": null,
+  "target_parts": [
+    "II",
+    "III",
+    "IV"
+  ],
+  "topics": [
+    "การประเมินความเสี่ยง VTE",
+    "การประเมินซ้ำเมื่ออาการเปลี่ยนแปลง",
+    "การสื่อสารก่อนจำหน่าย"
+  ],
+  "roles": [
+    {
+      "id": "director",
+      "name": "HA Quality Director"
+    },
+    {
+      "id": "standards",
+      "name": "HA Standards & Updates"
+    },
+    {
+      "id": "surveyor",
+      "name": "Internal Survey Lead"
+    },
+    {
+      "id": "system_surveyor",
+      "name": "System Surveyor"
+    },
+    {
+      "id": "clinical_surveyor",
+      "name": "Clinical Surveyor"
+    },
+    {
+      "id": "tracer_specialist",
+      "name": "Tracer & Interview Specialist"
+    },
+    {
+      "id": "metrics",
+      "name": "KPI & Outcomes"
+    },
+    {
+      "id": "followup",
+      "name": "Improvement Follow-up"
+    },
+    {
+      "id": "auditor",
+      "name": "Independent Evidence Auditor"
+    }
+  ],
+  "visit_phases": [
+    {
+      "step": "desk_review",
+      "activity": "ตรวจ SAR/Profile/KPI/risk และหลักฐานพร้อมช่วงเวลาที่เกี่ยวข้อง"
+    },
+    {
+      "step": "risk_based_plan",
+      "activity": "กำหนดขอบเขต กลุ่มตัวอย่าง การตามรอย และประเด็นปลอดภัยสูง"
+    },
+    {
+      "step": "opening",
+      "activity": "ชี้แจงวัตถุประสงค์ ความลับ การเรียนรู้ ไม่กล่าวโทษ และความเป็นอิสระ"
+    },
+    {
+      "step": "onsite_tracer",
+      "activity": "สัมภาษณ์ สังเกตงานจริง และตรวจหลักฐานในขอบเขตสิทธิ์ที่อนุญาต"
+    },
+    {
+      "step": "triangulation",
+      "activity": "เทียบเอกสาร-สัมภาษณ์-การสังเกต-ผลลัพธ์ แยกความขัดแย้งของข้อมูล"
+    },
+    {
+      "step": "team_consensus",
+      "activity": "คณะผู้ประเมินภายในทวนหลักฐานและจัดชั้นข้อค้นพบเบื้องต้น"
+    },
+    {
+      "step": "closing",
+      "activity": "แจ้งจุดแข็ง ประเด็นเสี่ยง และ OFI โดยให้หน่วยงานชี้แจงข้อเท็จจริง"
+    },
+    {
+      "step": "followup",
+      "activity": "กำหนดเจ้าของงาน ระยะเวลา และวิธียืนยันผลการปรับปรุง"
+    }
+  ],
+  "sample_questions": [
+    {
+      "part": "II",
+      "question": "ระบบงานสำคัญระบุความเสี่ยงและจุดเชื่อมต่อระหว่างหน่วยงานอย่างไร?"
+    },
+    {
+      "part": "II",
+      "question": "เมื่อเกิดปัญหา ระบบแจ้งเตือน แก้ไข เรียนรู้ และป้องกันการเกิดซ้ำอย่างไร?"
+    },
+    {
+      "part": "III",
+      "question": "ลองตามรอยผู้ป่วยหนึ่งกรณีตั้งแต่รับบริการ ประเมิน วางแผน ดูแล จนจำหน่าย: มีจุดเสี่ยงใด?"
+    },
+    {
+      "part": "III",
+      "question": "แนวปฏิบัติที่กำหนดไว้ตรงกับสิ่งที่ผู้ปฏิบัติทำจริงและประสบการณ์ผู้ป่วยหรือไม่?"
+    },
+    {
+      "part": "IV",
+      "question": "ตัวชี้วัดนี้มีนิยาม ตัวเศษ ตัวส่วน ระยะเวลา และคุณภาพข้อมูลที่ตรวจสอบได้หรือไม่?"
+    },
+    {
+      "part": "IV",
+      "question": "ผลลัพธ์แสดงแนวโน้มอะไร และทีมใช้ผลนั้นตัดสินใจปรับปรุงอย่างไร?"
+    }
+  ],
+  "evidence_verified_by_type": {},
+  "evidence_pending_ids": [
+    "DEMO-1"
+  ],
+  "evidence_gaps": [
+    "ต้องตรวจรหัสข้อกำหนด HA 6 จากต้นฉบับก่อนอ้างอิงผล",
+    "ไม่มีเอกสารที่ยืนยันแล้ว",
+    "ยังไม่มีข้อมูลสัมภาษณ์ที่ยืนยันแล้ว (อาจเก็บภาคสนาม)",
+    "ยังไม่มีข้อมูลสังเกตการณ์ที่ยืนยันแล้ว (อาจเก็บภาคสนาม)",
+    "ยังไม่มีข้อมูลผลลัพธ์/ตัวชี้วัดที่ยืนยันแล้ว (อาจเก็บภาคสนาม)"
+  ],
+  "risk_escalation": null,
+  "safety_signals_count": 0,
+  "finding_categories": [
+    "good_practice",
+    "potential_ofi",
+    "safety_signal",
+    "evidence_gap",
+    "not_assessed"
+  ],
+  "required_approvals": [
+    "หัวหน้าทีมเยี่ยมสำรวจภายใน",
+    "เจ้าของกระบวนการ",
+    "ทีมคุณภาพโรงพยาบาล"
+  ],
+  "note": "คำถามและเฟสเป็นแบบออกแบบใหม่สำหรับช่วยงาน ไม่ใช่เครื่องมือทางการของ สรพ.; ตรวจทานหลักฐานจริงก่อนใช้ผล",
+  "planned_on": "2026-11-03"
+}

@@ -1,0 +1,33 @@
+{
+  "survey_id": "IS-ORTHO-VTE-DEMO-01",
+  "facility_alias": "โรงพยาบาลตัวอย่าง (ข้อมูลจำลอง)",
+  "mode": "internal_survey",
+  "deidentified": true,
+  "target_parts": [
+    "II",
+    "III",
+    "IV"
+  ],
+  "topics": [
+    "การประเมินความเสี่ยง VTE",
+    "การประเมินซ้ำเมื่ออาการเปลี่ยนแปลง",
+    "การสื่อสารก่อนจำหน่าย"
+  ],
+  "verified_standard_clause": false,
+  "surveyors": [
+    "external-from-care-team-A"
+  ],
+  "previous_coach_ids": [
+    "coaching-team-B"
+  ],
+  "evidence": [
+    {
+      "evidence_id": "DEMO-1",
+      "title": "ร่างแนวทาง VTE (ข้อมูลจำลอง)",
+      "locator": "ฉบับร่าง หน้า 1",
+      "type": "document",
+      "verified": false
+    }
+  ],
+  "unresolved_safety_signals": []
+}

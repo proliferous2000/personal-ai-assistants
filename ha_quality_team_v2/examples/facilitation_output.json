@@ -1,0 +1,113 @@
+{
+  "survey_id": "FAC-ORTHO-VTE-DEMO-01",
+  "facility_alias": "โรงพยาบาลตัวอย่าง (ข้อมูลจำลอง)",
+  "mode": "facilitation",
+  "standard": "Hospital and Healthcare Standards, 6th edition",
+  "standard_effective_date": "2026-10-01",
+  "status": "DRAFT_HUMAN_APPROVAL_REQUIRED",
+  "not_official_hai_survey": true,
+  "official_accreditation_decision": null,
+  "ha_score": null,
+  "target_parts": [
+    "II",
+    "III",
+    "IV"
+  ],
+  "topics": [
+    "การป้องกัน VTE",
+    "ประสบการณ์ของผู้ปฏิบัติ",
+    "การติดตามผล"
+  ],
+  "roles": [
+    {
+      "id": "director",
+      "name": "HA Quality Director"
+    },
+    {
+      "id": "standards",
+      "name": "HA Standards & Updates"
+    },
+    {
+      "id": "facilitator",
+      "name": "Surveyor–Facilitator"
+    },
+    {
+      "id": "improvement",
+      "name": "QI / 3C-DALI / PDSA"
+    },
+    {
+      "id": "auditor",
+      "name": "Independent Evidence Auditor"
+    }
+  ],
+  "visit_phases": [
+    {
+      "step": "context",
+      "activity": "ทำความเข้าใจบริบทและโจทย์คุณภาพร่วมกับเจ้าของระบบ"
+    },
+    {
+      "step": "probe",
+      "activity": "ชวนทีมเล่ากระบวนการจริงด้วยคำถามเปิด ไม่กล่าวโทษ"
+    },
+    {
+      "step": "reflect",
+      "activity": "สรุปสิ่งที่ทีมทำได้ดี ความเสี่ยง และประเด็นที่ทีมต้องการพัฒนา"
+    },
+    {
+      "step": "co_design",
+      "activity": "ให้ทีมออกแบบการทดลองปรับปรุงและแนวทางวัดผล"
+    },
+    {
+      "step": "handoff",
+      "activity": "ส่งประเด็นให้ทีมเจ้าของงาน พร้อมระบุว่ายังไม่ใช่ผลการตรวจประเมิน"
+    }
+  ],
+  "sample_questions": [
+    {
+      "part": "II",
+      "question": "ระบบงานสำคัญระบุความเสี่ยงและจุดเชื่อมต่อระหว่างหน่วยงานอย่างไร?"
+    },
+    {
+      "part": "II",
+      "question": "เมื่อเกิดปัญหา ระบบแจ้งเตือน แก้ไข เรียนรู้ และป้องกันการเกิดซ้ำอย่างไร?"
+    },
+    {
+      "part": "III",
+      "question": "ลองตามรอยผู้ป่วยหนึ่งกรณีตั้งแต่รับบริการ ประเมิน วางแผน ดูแล จนจำหน่าย: มีจุดเสี่ยงใด?"
+    },
+    {
+      "part": "III",
+      "question": "แนวปฏิบัติที่กำหนดไว้ตรงกับสิ่งที่ผู้ปฏิบัติทำจริงและประสบการณ์ผู้ป่วยหรือไม่?"
+    },
+    {
+      "part": "IV",
+      "question": "ตัวชี้วัดนี้มีนิยาม ตัวเศษ ตัวส่วน ระยะเวลา และคุณภาพข้อมูลที่ตรวจสอบได้หรือไม่?"
+    },
+    {
+      "part": "IV",
+      "question": "ผลลัพธ์แสดงแนวโน้มอะไร และทีมใช้ผลนั้นตัดสินใจปรับปรุงอย่างไร?"
+    }
+  ],
+  "evidence_verified_by_type": {},
+  "evidence_pending_ids": [],
+  "evidence_gaps": [
+    "ต้องตรวจรหัสข้อกำหนด HA 6 จากต้นฉบับก่อนอ้างอิงผล",
+    "ไม่มีเอกสารที่ยืนยันแล้ว"
+  ],
+  "risk_escalation": null,
+  "safety_signals_count": 0,
+  "finding_categories": [
+    "good_practice",
+    "potential_ofi",
+    "safety_signal",
+    "evidence_gap",
+    "not_assessed"
+  ],
+  "required_approvals": [
+    "หัวหน้าทีมเยี่ยมสำรวจภายใน",
+    "เจ้าของกระบวนการ",
+    "ทีมคุณภาพโรงพยาบาล"
+  ],
+  "note": "คำถามและเฟสเป็นแบบออกแบบใหม่สำหรับช่วยงาน ไม่ใช่เครื่องมือทางการของ สรพ.; ตรวจทานหลักฐานจริงก่อนใช้ผล",
+  "planned_on": "2026-11-03"
+}

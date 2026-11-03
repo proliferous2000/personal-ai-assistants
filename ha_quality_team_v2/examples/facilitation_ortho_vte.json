@@ -1,0 +1,20 @@
+{
+  "survey_id": "FAC-ORTHO-VTE-DEMO-01",
+  "facility_alias": "โรงพยาบาลตัวอย่าง (ข้อมูลจำลอง)",
+  "mode": "facilitation",
+  "deidentified": true,
+  "target_parts": [
+    "II",
+    "III",
+    "IV"
+  ],
+  "topics": [
+    "การป้องกัน VTE",
+    "ประสบการณ์ของผู้ปฏิบัติ",
+    "การติดตามผล"
+  ],
+  "verified_standard_clause": false,
+  "surveyors": [],
+  "previous_coach_ids": [],
+  "evidence": []
+}

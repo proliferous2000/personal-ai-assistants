@@ -1,0 +1,85 @@
+{
+  "case_id": "PCT-ORTHO-QI-EXAMPLE-001",
+  "title": "วิเคราะห์ช่องว่างระบบป้องกัน VTE ในผู้ป่วยออร์โธปิดิกส์",
+  "scope": "clinical",
+  "standard": "Hospital and Healthcare Standards, 6th edition",
+  "standard_effective_date": "2026-10-01",
+  "status": "DRAFT_REQUIRES_HUMAN_REVIEW",
+  "not_an_accreditation_decision": true,
+  "ha_score": null,
+  "tasks": [
+    {
+      "agent_id": "director",
+      "agent_name": "HA Quality Director",
+      "assignment": "มอบหมายงาน กำหนดขอบเขต และตัดสินใจส่ง Human Review"
+    },
+    {
+      "agent_id": "standards",
+      "agent_name": "HA Standards & Updates",
+      "assignment": "ตรวจฉบับ รหัสข้อกำหนด และความตรงกันของแหล่งอ้างอิง"
+    },
+    {
+      "agent_id": "clinical",
+      "agent_name": "Clinical PCT & Tracer",
+      "assignment": "ตรวจเส้นทางผู้ป่วย CLT/PCT และระบบการดูแลผู้ป่วย"
+    },
+    {
+      "agent_id": "safety",
+      "agent_name": "Patient Safety & Risk",
+      "assignment": "ทบทวนความเสี่ยง เหตุการณ์ไม่พึงประสงค์ RCA และมาตรการป้องกัน"
+    },
+    {
+      "agent_id": "improvement",
+      "agent_name": "QI / 3C-DALI / PDSA",
+      "assignment": "ออกแบบ ทดลอง วัดผล เรียนรู้ และปรับปรุงระบบ"
+    },
+    {
+      "agent_id": "metrics",
+      "agent_name": "KPI & Outcomes",
+      "assignment": "ตรวจนิยามตัวชี้วัด ตัวเศษ ตัวส่วน แหล่งข้อมูล และแนวโน้ม"
+    },
+    {
+      "agent_id": "sar",
+      "agent_name": "SAR & Profile Writer",
+      "assignment": "จัดโครงร่าง Hospital Profile, SAR, PCT Profile และหลักฐานประกอบ"
+    },
+    {
+      "agent_id": "surveyor",
+      "agent_name": "Internal Survey Lead",
+      "assignment": "วางแผนเยี่ยมสำรวจและดูแลความเป็นอิสระของทีมประเมิน"
+    },
+    {
+      "agent_id": "infosec",
+      "agent_name": "Digital Safety & PDPA",
+      "assignment": "ตรวจสิทธิ์เข้าถึง การคุ้มครองข้อมูล และการใช้ AI/ดิจิทัล"
+    },
+    {
+      "agent_id": "auditor",
+      "agent_name": "Independent Evidence Auditor",
+      "assignment": "ทบทวนอิสระ ไม่ให้คะแนนหรือสรุปแทนหลักฐาน และส่งกลับแก้ไข"
+    }
+  ],
+  "workflow": [
+    "1 ตรวจฉบับมาตรฐานและเอกสาร SAR 2026 ที่ใช้อยู่",
+    "2 สรุป Context + Criteria + Concepts โดยมีหลักฐานระบุที่มา",
+    "3 วิเคราะห์ Design / Action / Learning / Improvement",
+    "4 จัดทำ evidence matrix และแยก fact / inference / missing",
+    "5 สรุป Purpose / Process / Performance และ OFI ที่จัดลำดับความสำคัญ",
+    "6 ส่ง Independent Evidence Audit ก่อนส่ง Human Review"
+  ],
+  "evidence_verified_ids": [],
+  "evidence_pending_ids": [
+    "EV-001"
+  ],
+  "missing_items": [
+    "ยังไม่มีหลักฐานภายในที่ตรวจสอบแหล่งและวันที่ได้",
+    "ต้องยืนยันข้อกำหนดและรหัสมาตรฐาน HA ฉบับที่ 6 จากต้นฉบับ",
+    "ผู้รับผิดชอบทางคลินิก/ระบบงานต้องตรวจทานความปลอดภัยก่อนใช้จริง"
+  ],
+  "human_approvals": [
+    "เจ้าของระบบงาน",
+    "ทีมคุณภาพ/ผู้รับผิดชอบ HA"
+  ],
+  "notice": "เครื่องมือนี้จัดแผนทบทวนแบบออฟไลน์ ไม่เชื่อมต่อโมเดล AI ไม่ตรวจหลักฐานต้นฉบับ และไม่ให้คะแนน HA แทนคณะทำงาน",
+  "planned_on": "2026-11-03"
+}
