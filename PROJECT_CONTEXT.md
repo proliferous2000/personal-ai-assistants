@@ -29,3 +29,12 @@ User request → authenticated support portal → director/orchestrator selects 
 JEFF must be conversational, challenge assumptions and rationales constructively, revise work with the user, evaluate outcomes, and propose a knowledge card for explicit authorized human approval. Only verified/approved, scoped, dated and versioned knowledge is trusted for subsequent retrieval. Do not train model weights from chat or save conversations, clinical details or participant data automatically.
 
 Design and acceptance criteria: `docs/dialogue_learning_loop.md`. This is **not yet implemented** in the static portal or backend.
+
+## Architecture decision — 2026-11-04: ChatGPT-first, skill-focused assistant
+User's preferred model is **one specialist ChatGPT companion named JEFF**, not a collection of 26 autonomous agents or a separate website as the default entry point. Use the strongest available authorized ChatGPT model as the thinking/conversation engine; adapt it through well-scoped project instructions, existing nursing research/R&D/RCT-GCP/citation and HA skills, verified internal knowledge, and carefully selected external search only when evidence needs validation or updating.
+
+Priority: easy entry, one natural-language conversation, critical thinking with the user, contextual continuity, evidence verification, and human-approved reusable lessons. Domain experts are *roles/skills* and optional workflows, not necessarily separately running model instances. Preserve Research Team Master V4 and HA Team V2 as existing assets; first audit and reuse. Avoid unnecessary external agent frameworks, API expense, or new UI deployment unless specialized ChatGPT/Project capabilities demonstrably cannot meet tested needs.
+
+Current ChatGPT product distinctions must be respected: a Project can provide reusable chats/files/instructions and project memory depending on settings; existing custom GPTs are configurable but have different memory behavior. Do not claim an existing project skill is automatically installed in external Codex/GitHub or that a static portal has AI reasoning. Maintain the portal only as an optional future interface, not required for daily use.
+
+Learning is *curated knowledge reuse with provenance, version and explicit authorization*, not autonomous self-training on chats. Do not store identifiable patient or study-participant records in GitHub.
