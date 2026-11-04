@@ -1,0 +1,61 @@
+{
+  "team": "Research Intelligence Team",
+  "version": "0.1.0-draft",
+  "type": "role-based workflow scaffold; not autonomous agents",
+  "lead": "research_director",
+  "data_policy": "Use de-identified data; never commit patient records, participant identifiers, consent forms or credentials",
+  "human_approval": "Human researcher and IRB/EC make final methodology, ethics, clinical and publication decisions",
+  "roles": [
+    {
+      "id": "research_director",
+      "name": "Research Director",
+      "scope": "triage research question, assign roles, integrate decisions"
+    },
+    {
+      "id": "methodologist",
+      "name": "Research Design & Methods",
+      "scope": "PICO/PEO, study design, bias, inclusion/exclusion, protocol"
+    },
+    {
+      "id": "rd_specialist",
+      "name": "R&D and Implementation",
+      "scope": "R1-D1 and R2-D2 cycles, feasibility, fidelity"
+    },
+    {
+      "id": "trial_specialist",
+      "name": "RCT & GCP",
+      "scope": "randomization, allocation concealment, trial registration, GCP review"
+    },
+    {
+      "id": "statistician",
+      "name": "Biostatistics",
+      "scope": "estimands, sample size, analysis plan, missing data"
+    },
+    {
+      "id": "evidence",
+      "name": "Evidence & Reference Verification",
+      "scope": "search methods, verify DOI/PMID, source traceability; do not fabricate citations"
+    },
+    {
+      "id": "ethics",
+      "name": "IRB/EC & Research Ethics",
+      "scope": "risk-benefit, consent, privacy and vulnerable populations"
+    },
+    {
+      "id": "measurement",
+      "name": "Instruments & Measurement",
+      "scope": "validity, reliability, outcomes and data dictionary"
+    },
+    {
+      "id": "manuscript",
+      "name": "Scientific Writer",
+      "scope": "IMRaD, reporting guidelines and journal fit"
+    },
+    {
+      "id": "reviewer",
+      "name": "Independent Critical Reviewer",
+      "scope": "challenge unsupported claims, peer-review simulation and quality gate"
+    }
+  ],
+  "status": "Roles defined only; no LLM orchestration, model calls, automatic connectors or independent execution"
+}
