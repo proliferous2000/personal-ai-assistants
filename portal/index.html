@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>J.A.R.V.I.S. | ศูนย์ช่วยงาน AI</title>
+<style>
+:root{--bg:#f4f6fa;--surface:#fff;--text:#18243b;--muted:#607089;--brand:#254e83;--border:#dbe1eb;--soft:#eaf1f9;--focus:#186bc3;--radius:18px}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:"Noto Sans Thai","Sarabun",system-ui,-apple-system,sans-serif;line-height:1.6}
+button,textarea,input{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,textarea:focus-visible,input:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.container{max-width:1140px;margin:auto;padding:24px}.head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:26px}
+.brand{font-size:1rem;font-weight:800;letter-spacing:.025em}.small{color:var(--muted);font-size:.87rem}.status{display:inline-flex;gap:7px;align-items:center;border:1px solid var(--border);border-radius:100px;padding:7px 12px;font-size:.8rem;color:#56637a;background:white}
+.status i{width:7px;height:7px;background:#a98b45;border-radius:50%}
+.main{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(290px,.85fr);gap:20px}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px;box-shadow:0 4px 22px rgba(30,47,74,.035)}
+h1{font-size:clamp(1.5rem,3.1vw,2.25rem);line-height:1.3;margin:0 0 6px}h2{font-size:1.06rem;margin:0 0 14px}
+p{margin:0 0 18px;color:var(--muted)}.eyebrow{font-size:.85rem;font-weight:700;color:var(--brand);margin-bottom:9px}
+label.legend{display:block;font-weight:700;margin:20px 0 8px}
+.choices{display:flex;flex-wrap:wrap;gap:8px}.choice{border:1px solid var(--border);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:7px;background:#fff;cursor:pointer;font-weight:600;font-size:.91rem}
+.choice:has(input:checked){background:var(--soft);border-color:#6f94bf;color:#183f6c}
+.choice input{accent-color:var(--brand)}
+textarea{resize:vertical;min-height:142px;width:100%;border:1px solid #c9d2df;border-radius:14px;padding:14px 16px;background:#fff;color:var(--text);line-height:1.65}
+textarea::placeholder{color:#8390a3}.action{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:15px}
+.btn{border:0;border-radius:12px;padding:11px 18px;font-weight:800;text-decoration:none;display:inline-block}
+.btn-primary{background:var(--brand);color:white}.btn-secondary{background:#e9eff7;color:#234e7c}.btn-primary:hover{background:#183f6d}
+.helper{font-size:.82rem;color:var(--muted)}.quick{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.task{border:1px solid var(--border);background:white;color:var(--text);border-radius:12px;text-align:left;padding:12px 13px;min-height:80px}
+.task:hover,.task[aria-pressed=true]{border-color:#6797c9;background:#f1f6fc}
+.task strong{display:block;font-size:.91rem}.task span{display:block;font-size:.77rem;color:var(--muted)}
+.rule{border:0;border-top:1px solid var(--border);margin:22px 0}
+.route{background:#f5f8fc;border-radius:13px;padding:15px;margin-top:8px}.route strong{color:var(--brand)}.step{margin-top:12px;font-size:.9rem}
+.step:before{content:"→";color:var(--brand);padding-right:9px;font-weight:800}
+.note{font-size:.82rem;color:var(--muted);margin-top:14px}
+.output{display:none;margin-top:16px;border:1px solid #bed0e5;background:#f8fbff;border-radius:13px;padding:14px}
+.output.show{display:block}.output-title{font-weight:800;margin-bottom:8px}.output pre{white-space:pre-wrap;word-wrap:break-word;font-family:inherit;font-size:.84rem;margin:0 0 10px;max-height:230px;overflow:auto}
+.warning{border-left:3px solid #d4a445;padding-left:11px;color:#695529}
+footer{font-size:.82rem;color:var(--muted);padding:24px 5px}
+@media(max-width:830px){.main{grid-template-columns:1fr}.container{padding:16px}.panel{padding:20px}.head{margin-bottom:18px}}
+@media(max-width:500px){.quick{grid-template-columns:1fr}.choice{flex:1;justify-content:center}.head{align-items:flex-start}.status{white-space:nowrap}}
+</style>
+</head>
+<body>
+<div class="container">
+<header class="head"><div><div class="brand">J.A.R.V.I.S. <span style="font-weight:500;color:#8390a3">/ ศูนย์ช่วยงาน AI</span></div><div class="small">จุดเดียวสำหรับขอความช่วยเหลือจากทีม AI</div></div><div class="status" aria-label="ยังเป็นต้นแบบ"><i></i>ต้นแบบหน้าจอ</div></header>
+<main class="main">
+<section class="panel" aria-label="ส่งคำขอความช่วยเหลือ">
+<div class="eyebrow">AI SUPPORT DESK</div>
+<h1>วันนี้ให้ทีมช่วยอะไรครับ?</h1>
+<p>พิมพ์สิ่งที่ต้องการได้เลย ไม่ต้องจำชื่อ Agent หรือค้นหาโปรเจกต์</p>
+<div class="legend" role="group" aria-labelledby="mode-title">
+<label class="legend" id="mode-title">ต้องการให้ทีมใดช่วย?</label>
+<div class="choices">
+<label class="choice"><input type="radio" name="team" value="auto" checked>ให้ระบบเลือกทีม</label>
+<label class="choice"><input type="radio" name="team" value="research">ทีมวิจัย</label>
+<label class="choice"><input type="radio" name="team" value="ha">ทีมคุณภาพ HA</label>
+</div></div>
+<label class="legend" for="request">รายละเอียดงาน</label>
+<textarea id="request" placeholder="เช่น ช่วยตรวจโครงร่างวิจัย R&D เรื่องการดูแลผู้ป่วยกระดูกหัก และสรุปข้อเสนอแนะที่ต้องแก้ไข..." maxlength="5000" aria-describedby="privacy"></textarea>
+<div id="privacy" class="helper">โปรดไม่กรอกชื่อผู้ป่วย HN เลขบัตร หรือข้อมูลลับลงในหน้าต้นแบบนี้</div>
+<div class="action"><button class="btn btn-primary" type="button" id="prepare">เตรียมคำสั่งช่วยงาน</button><a class="btn btn-secondary" href="https://chatgpt.com/" target="_blank" rel="noopener">เปิด ChatGPT</a></div>
+<div class="output" id="output" aria-live="polite"><div class="output-title">คำสั่งที่จัดเตรียมไว้สำหรับทดลองใช้งาน</div><pre id="prepared"></pre><button type="button" class="btn btn-secondary" id="copy">คัดลอกคำสั่ง</button><div class="helper" id="feedback">ต้นแบบนี้ยังไม่ส่งงานให้ AI โดยอัตโนมัติ</div></div>
+<hr class="rule">
+<h2>หรือเลือกงานที่ใช้บ่อย</h2>
+<div class="quick" id="tasks">
+<button type="button" class="task" data-kind="research" data-text="ช่วยตรวจโครงร่างวิจัยตามมาตรฐานระเบียบวิธีและจริยธรรม พร้อมแยกข้อบกพร่องที่สำคัญและแนวทางแก้ไข"><strong>ตรวจโครงร่างและ EC</strong><span>ระเบียบวิธี • จริยธรรม</span></button>
+<button type="button" class="task" data-kind="research" data-text="ช่วยออกแบบโครงการวิจัยและพัฒนา (R&D) ระบุ R1-D1 / R2-D2 เครื่องมือ กลุ่มตัวอย่าง ตัวชี้วัด และขั้นตอน EC"><strong>ออกแบบ R&D</strong><span>พัฒนาระบบ • นวัตกรรม</span></button>
+<button type="button" class="task" data-kind="research" data-text="ช่วยทบทวนแผนการวิเคราะห์ทางสถิติ ตัวแปร ขนาดตัวอย่าง สมมติฐาน และข้อจำกัด โดยไม่สร้างผลการวิเคราะห์ที่ไม่มีข้อมูลจริง"><strong>วิเคราะห์สถิติ</strong><span>Sample size • Analysis plan</span></button>
+<button type="button" class="task" data-kind="research" data-text="ช่วยตรวจและปรับบทความวิจัยตามโครงสร้าง IMRaD พร้อมตรวจความสอดคล้องของหลักฐานและรายการอ้างอิง"><strong>เขียนบทความวิจัย</strong><span>IMRaD • Reference</span></button>
+<button type="button" class="task" data-kind="ha" data-text="ช่วยวิเคราะห์เหตุการณ์ความเสี่ยงด้วย RCA แยกปัจจัยเชิงระบบ เสนอแนวทางป้องกันและตัวชี้วัดติดตามผล"><strong>วิเคราะห์ RCA</strong><span>Patient safety • HRMS</span></button>
+<button type="button" class="task" data-kind="ha" data-text="ช่วยจัดทำแผน QI หรือ KPI จากปัญหาหน่วยงาน กำหนดตัวชี้วัด นิยามตัวเศษตัวส่วน เป้าหมาย และรอบติดตาม"><strong>จัดทำ QI / KPI</strong><span>คุณภาพ • ตัวชี้วัด</span></button>
+<button type="button" class="task" data-kind="ha" data-text="ช่วยเตรียม Internal Survey HA โดยวิเคราะห์มาตรฐานที่เกี่ยวข้อง สร้างคำถาม Tracer และรายการหลักฐานที่ต้องตรวจ"><strong>เตรียมเยี่ยมสำรวจ HA</strong><span>Tracer • Evidence</span></button>
+<button type="button" class="task" data-kind="ha" data-text="ช่วยทบทวนและปรับรายงาน SAR หรือ PCT Profile โดยแยกข้อเท็จจริง หลักฐาน และโอกาสพัฒนา"><strong>จัดทำ SAR / PCT</strong><span>รายงานคุณภาพ • หลักฐาน</span></button>
+</div>
+</section>
+<aside class="panel" aria-label="เส้นทางการช่วยงาน">
+<h2>ทีมสนับสนุนเบื้องหลัง</h2>
+<p>ผู้ใช้ไม่ต้องเลือกผู้เชี่ยวชาญทีละคน ระบบเป้าหมายจะรับงานและเลือกบทบาทที่เกี่ยวข้องให้</p>
+<div class="route"><div class="small">ทีมที่แนะนำสำหรับข้อความนี้</div><strong id="team-result">รอรายละเอียดงาน</strong><div class="step">Director รับเรื่องและจำแนกงาน</div><div class="step" id="role-result">เลือกผู้เชี่ยวชาญตามประเภทงาน</div><div class="step">ตรวจทานอิสระและสรุปให้ผู้ใช้</div><div class="step">ผู้รับผิดชอบตรวจสอบก่อนนำไปใช้</div></div>
+<hr class="rule">
+<h2>แนวคิดของหน้าจอนี้</h2>
+<p class="small">หน้าเดียวสำหรับทีมวิจัยและทีม HA ใช้ Orchestrator และ Skill เดิมเป็นหลัก ไม่เพิ่ม Agent โดยไม่จำเป็น</p>
+<p class="note warning"><strong>ขอบเขตต้นแบบ:</strong> หน้านี้เป็นภาพสาธิตการใช้งาน ยังไม่มีระบบ Login, AI API, RAG, การรับไฟล์, การบันทึกงาน หรือการส่งคำสั่งไป Agent อัตโนมัติ</p>
+</aside>
+</main>
+<footer>J.A.R.V.I.S. Support Portal — UI prototype | ห้ามใช้กับข้อมูลระบุตัวบุคคลหรือข้อมูลอ่อนไหวก่อนผ่านการตรวจสอบสิทธิ์และความปลอดภัย</footer>
+</div>
+<script>
+(function(){
+"use strict";
+var request=document.getElementById("request"),out=document.getElementById("output"),preview=document.getElementById("prepared"),feedback=document.getElementById("feedback");
+var allTasks=Array.from(document.querySelectorAll(".task")),lastTask=null;
+function mode(){return document.querySelector('input[name="team"]:checked').value}
+function identify(){
+ var v=request.value.toLowerCase(),m=mode();
+ if(m==="research"||m==="ha")return m;
+ if(lastTask && request.value===lastTask.text)return lastTask.kind;
+ if(/(?:ha|sar|pct|rca|hrms|qi|kpi|นิเทศ|คุณภาพ|ความเสี่ยง|อุบัติการณ์|ตัวชี้วัด|เยี่ยมสำรวจ)/i.test(v))return "ha";
+ if(/(?:วิจัย|r&d|rct|gcp|ec\b|irb|สถิติ|ตีพิมพ์|บทความ|วรรณกรรม|โครงร่าง|กลุ่มตัวอย่าง)/i.test(v))return "research";
+ return "unknown";
+}
+function update(){
+ var t=identify(),el=document.getElementById("team-result"),role=document.getElementById("role-result");
+ if(t==="research"){el.textContent="Research Intelligence Team";role.textContent="Methodology / R&D / RCT / Statistics / Evidence / Ethics ตามโจทย์"}
+ else if(t==="ha"){el.textContent="HA Quality & Surveyor Intelligence";role.textContent="Standards / Clinical / Risk / QI / Metrics / Surveyor ตามโจทย์"}
+ else{el.textContent=request.value.trim()?"รอ Director ประเมินความเหมาะสม":"รอรายละเอียดงาน";role.textContent="เลือกผู้เชี่ยวชาญตามประเภทงาน"}
+}
+allTasks.forEach(function(b){
+ b.setAttribute("aria-pressed","false");
+ b.addEventListener("click",function(){
+  allTasks.forEach(function(x){x.setAttribute("aria-pressed","false")});
+  b.setAttribute("aria-pressed","true");request.value=b.dataset.text;lastTask={kind:b.dataset.kind,text:b.dataset.text};out.classList.remove("show");update();request.focus();
+ });
+});
+request.addEventListener("input",function(){out.classList.remove("show");update()});
+document.querySelectorAll('input[name="team"]').forEach(function(b){b.addEventListener("change",update)});
+document.getElementById("prepare").addEventListener("click",function(){
+ var q=request.value.trim();if(!q){request.focus();feedback.textContent="กรุณาพิมพ์รายละเอียดงานก่อน";return}
+ var t=identify(),team=t==="research"?"ทีมวิจัย":t==="ha"?"ทีมคุณภาพ HA":"ให้ Research Director ประเมินและเลือกทีม";
+ var message="โปรดรับงานในฐานะฝ่ายสนับสนุน โดยพัฒนาต่อยอดจาก Skill และ Workflow เดิม ไม่สร้าง Agent ซ้ำ\nทีมที่ต้องการ: "+team+"\nคำขอ: "+q+"\nแนวทาง: แยกข้อเท็จจริง/ข้อเสนอ/สิ่งที่ยังไม่ยืนยัน ระบุหลักฐานและข้อจำกัด ใช้ผู้ตรวจทานอิสระตามความจำเป็น ให้ผู้ใช้ตรวจสอบก่อนนำไปใช้ ห้ามสมมติผลการตรวจสอบหรือการอนุมัติจริยธรรม";
+ preview.textContent=message;out.classList.add("show");feedback.textContent="โปรดคัดลอกข้อความไปยัง ChatGPT เพื่อทดลอง ขณะนี้ยังไม่เชื่อมระบบจริง";out.scrollIntoView({behavior:"smooth",block:"nearest"});
+});
+document.getElementById("copy").addEventListener("click",async function(){
+ try{await navigator.clipboard.writeText(preview.textContent);feedback.textContent="คัดลอกแล้ว — เปิด ChatGPT แล้ววางข้อความได้เลย"}
+ catch(e){feedback.textContent="ไม่สามารถคัดลอกอัตโนมัติได้ โปรดเลือกข้อความข้างบนและคัดลอกด้วยตนเอง"}
+});
+update();
+})();
+</script>
+</body>
+</html>
