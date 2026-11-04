@@ -24,3 +24,8 @@ User request → authenticated support portal → director/orchestrator selects 
 - Prefer simple Thai UI, sensible defaults and common task shortcuts. Offer explicit user-facing status, reviewer checkpoints and easy-to-find historical tasks.
 - A preview/copy prompt is not real end-to-end AI execution; label it truthfully.
 - Do not deploy to hospital networks or give write access to clinical systems without organization authorization, access control, security review and testing.
+
+## Dialogue and continuous learning — added 2026-11-04
+JEFF must be conversational, challenge assumptions and rationales constructively, revise work with the user, evaluate outcomes, and propose a knowledge card for explicit authorized human approval. Only verified/approved, scoped, dated and versioned knowledge is trusted for subsequent retrieval. Do not train model weights from chat or save conversations, clinical details or participant data automatically.
+
+Design and acceptance criteria: `docs/dialogue_learning_loop.md`. This is **not yet implemented** in the static portal or backend.

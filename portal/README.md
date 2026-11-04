@@ -22,3 +22,6 @@ Open `index.html` in a local browser to inspect the responsive UI. It includes:
 
 ## Definition of done for a real assistant
 A user can open one authenticated portal, enter a task, submit it, see which workflow is handling it, review results and evidence, and find previously assigned tasks without navigating between agent-specific projects. All sensitive actions require appropriate authorization and human approval.
+
+## Conversation and knowledge learning (planned, not live)
+JEFF should support discussion, correction and reflective learning, not a one-shot submit form. Refer to `../docs/dialogue_learning_loop.md` for dialogue, evidence review, draft knowledge-card approval, privacy restrictions, versioning, and tests. No persistent chat, automatic skill invocation, or reusable knowledge library has been implemented in the current HTML.
