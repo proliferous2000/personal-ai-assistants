@@ -1,0 +1,576 @@
+{
+  "version": "0.1.0",
+  "audited_on": "2026-11-05",
+  "runtime": "offline_policy_planner_not_ai_execution",
+  "skills": [
+    {
+      "id": "methodology",
+      "name": "Research Methodology",
+      "group": "A",
+      "status": "cloud_source_inspected",
+      "sources": [
+        "skill://user/6ab4ae0dab3c8191985d31da946efdcf/nursing-research-partner/SKILL.md"
+      ],
+      "triggers": [
+        "ระเบียบวิธี",
+        "วิธีวิจัย",
+        "methodology",
+        "ออกแบบวิจัย"
+      ],
+      "support": [],
+      "project_installed": false,
+      "execution": "instruction_only_or_offline_asset",
+      "limitation": "ไม่ใช่ autonomous agent; ต้องอ่านต้นฉบับ/ยืนยันเครื่องมือก่อนใช้; ส่วนที่ไม่ครบต้องระบุช่องว่าง"
+    },
+    {
+      "id": "rd",
+      "name": "Research & Development",
+      "group": "A",
+      "status": "cloud_source_inspected",
+      "sources": [
+        "skill://user/6acf98e4aa0c81919bd11beb80e1af73/design-rd-action-research/SKILL.md",
+        "skill://user/6ab4ae0dab3c8191985d31da946efdcf/nursing-research-partner/SKILL.md"
+      ],
+      "triggers": [
+        "r&d",
+        "r1d1",
+        "วิจัยและพัฒนา",
+        "วิจัย r&d"
+      ],
+      "support": [
+        "methodology"
+      ],
+      "project_installed": false,
+      "execution": "instruction_only_or_offline_asset",
+      "limitation": "ไม่ใช่ autonomous agent; ต้องอ่านต้นฉบับ/ยืนยันเครื่องมือก่อนใช้; ส่วนที่ไม่ครบต้องระบุช่องว่าง"
+    },
+    {
+      "id": "action",
+      "name": "Action Research",
+      "group": "A",
+      "status": "cloud_source_inspected",
+      "sources": [
+        "skill://user/6acf98e4aa0c81919bd11beb80e1af73/design-rd-action-research/SKILL.md",
+        "skill://user/6ab4ae0dab3c8191985d31da946efdcf/nursing-research-partner/SKILL.md"
+      ],
+      "triggers": [
+        "action research",
+        "วิจัยเชิงปฏิบัติการ",
+        "paor",
+        "participatory action"
+      ],
+      "support": [
+        "methodology"
+      ],
+      "project_installed": false,
+      "execution": "instruction_only_or_offline_asset",
+      "limitation": "ไม่ใช่ autonomous agent; ต้องอ่านต้นฉบับ/ยืนยันเครื่องมือก่อนใช้; ส่วนที่ไม่ครบต้องระบุช่องว่าง"
+    },
+    {
+      "id": "rct",
+      "name": "RCT / GCP",
+      "group": "A",
+      "status": "cloud_source_inspected",
+      "sources": [
+        "skill://user/6ad09633b6208191b741a4d1c954f395/design-rct-gcp/SKILL.md"
+      ],
+      "triggers": [
+        "rct",
+        "gcp",
+        "สุ่มมีกลุ่มควบคุม",
+        "randomized",
+        "allocation concealment"
+      ],
+      "support": [
+        "methodology"
+      ],
+      "project_installed": false,
+      "execution": "instruction_only_or_offline_asset",
+      "limitation": "ไม่ใช่ autonomous agent; ต้องอ่านต้นฉบับ/ยืนยันเครื่องมือก่อนใช้; ส่วนที่ไม่ครบต้องระบุช่องว่าง"
+    },
+    {
+      "id": "statistics",
+      "name": "Statistical Analysis",
+      "group": "A",
+      "status": "partial_prompt",
+      "sources": [
+        "skill://user/6ab4ae0dab3c8191985d31da946efdcf/nursing-research-partner/SKILL.md"
+      ],
+      "triggers": [
+        "สถิติ",
+        "statistical",
+        "sample size",
+        "ขนาดตัวอย่าง"
+      ],
+      "support": [
+        "methodology"
+      ],
+      "project_installed": false,
+      "execution": "instruction_only_or_offline_asset",
+      "limitation": "ไม่ใช่ autonomous agent; ต้องอ่านต้นฉบับ/ยืนยันเครื่องมือก่อนใช้; ส่วนที่ไม่ครบต้องระบุช่องว่าง"
+    },
+    {
+      "id": "writing",
+      "name": "Academic Writing",
+      "group": "A",
+      "status": "partial_prompt",
+      "sources": [
+        "skill://user/6ab4ae0dab3c8191985d31da946efdcf/nursing-research-partner/SKILL.md"
+      ],
+      "triggers": [
+        "บทคัดย่อ",
+        "manuscript",
+        "academic writing",
+        "เขียนบทความ"
+      ],
+      "support": [],
+      "project_installed": false,
+      "execution": "instruction_only_or_offline_asset",
+      "limitation": "ไม่ใช่ autonomous agent; ต้องอ่านต้นฉบับ/ยืนยันเครื่องมือก่อนใช้; ส่วนที่ไม่ครบต้องระบุช่องว่าง"
+    },
+    {
+      "id": "literature",
+      "name": "Literature Review",
+      "group": "A",
+      "status": "partial_prompt",
+      "sources": [
+        "skill://user/6ab4ae0dab3c8191985d31da946efdcf/nursing-research-partner/SKILL.md"
+      ],
+      "triggers": [
+        "ทบทวนวรรณกรรม",
+        "literature review",
+        "ค้นบทความ"
+      ],
+      "support": [
+        "citation"
+      ],
+      "project_installed": false,
+      "execution": "instruction_only_or_offline_asset",
+      "limitation": "ไม่ใช่ autonomous agent; ต้องอ่านต้นฉบับ/ยืนยันเครื่องมือก่อนใช้; ส่วนที่ไม่ครบต้องระบุช่องว่าง"
+    },
+    {
+      "id": "citation",
+      "name": "Citation Verification",
+      "group": "A",
+      "status": "missing_original",
+      "sources": [],
+      "triggers": [
+        "citation",
+        "doi",
+        "อ้างอิง",
+        "บรรณานุกรม"
+      ],
+      "support": [],
+      "project_installed": false,
+      "execution": "instruction_only_or_offline_asset",
+      "limitation": "ไม่ใช่ autonomous agent; ต้องอ่านต้นฉบับ/ยืนยันเครื่องมือก่อนใช้; ส่วนที่ไม่ครบต้องระบุช่องว่าง"
+    },
+    {
+      "id": "reviewer",
+      "name": "Research Critical Reviewer",
+      "group": "A",
+      "status": "missing_original",
+      "sources": [],
+      "triggers": [
+        "critical review",
+        "วิจารณ์งานวิจัย"
+      ],
+      "support": [
+        "citation"
+      ],
+      "project_installed": false,
+      "execution": "instruction_only_or_offline_asset",
+      "limitation": "ไม่ใช่ autonomous agent; ต้องอ่านต้นฉบับ/ยืนยันเครื่องมือก่อนใช้; ส่วนที่ไม่ครบต้องระบุช่องว่าง"
+    },
+    {
+      "id": "ethics",
+      "name": "Research Ethics Review",
+      "group": "B",
+      "status": "proposed",
+      "sources": [],
+      "triggers": [
+        "ec",
+        "irb",
+        "จริยธรรมวิจัย",
+        "จริยธรรมการวิจัย",
+        "ฐานะ ec"
+      ],
+      "support": [
+        "protocol",
+        "risk_benefit",
+        "consent",
+        "research_governance",
+        "reviewer"
+      ],
+      "project_installed": false,
+      "execution": "instruction_only_or_offline_asset",
+      "limitation": "ไม่ใช่ autonomous agent; ต้องอ่านต้นฉบับ/ยืนยันเครื่องมือก่อนใช้; ส่วนที่ไม่ครบต้องระบุช่องว่าง"
+    },
+    {
+      "id": "protocol",
+      "name": "Protocol Assessment",
+      "group": "B",
+      "status": "partial_prompt",
+      "sources": [
+        "skill://user/6ad09633b6208191b741a4d1c954f395/design-rct-gcp/SKILL.md",
+        "skill://user/6ab4ae0dab3c8191985d31da946efdcf/nursing-research-partner/SKILL.md"
+      ],
+      "triggers": [
+        "protocol",
+        "โครงร่างวิจัย",
+        "โครงการวิจัย"
+      ],
+      "support": [
+        "methodology"
+      ],
+      "project_installed": false,
+      "execution": "instruction_only_or_offline_asset",
+      "limitation": "ไม่ใช่ autonomous agent; ต้องอ่านต้นฉบับ/ยืนยันเครื่องมือก่อนใช้; ส่วนที่ไม่ครบต้องระบุช่องว่าง"
+    },
+    {
+      "id": "risk_benefit",
+      "name": "Risk–Benefit Analysis",
+      "group": "B",
+      "status": "partial_prompt",
+      "sources": [
+        "skill://user/6ad09633b6208191b741a4d1c954f395/design-rct-gcp/SKILL.md"
+      ],
+      "triggers": [
+        "risk-benefit",
+        "risk–benefit",
+        "ความเสี่ยงและประโยชน์"
+      ],
+      "support": [],
+      "project_installed": false,
+      "execution": "instruction_only_or_offline_asset",
+      "limitation": "ไม่ใช่ autonomous agent; ต้องอ่านต้นฉบับ/ยืนยันเครื่องมือก่อนใช้; ส่วนที่ไม่ครบต้องระบุช่องว่าง"
+    },
+    {
+      "id": "consent",
+      "name": "Informed Consent Review",
+      "group": "B",
+      "status": "partial_prompt",
+      "sources": [
+        "skill://user/6ad09633b6208191b741a4d1c954f395/design-rct-gcp/SKILL.md"
+      ],
+      "triggers": [
+        "informed consent",
+        "ใบยินยอม",
+        "เอกสารยินยอม"
+      ],
+      "support": [],
+      "project_installed": false,
+      "execution": "instruction_only_or_offline_asset",
+      "limitation": "ไม่ใช่ autonomous agent; ต้องอ่านต้นฉบับ/ยืนยันเครื่องมือก่อนใช้; ส่วนที่ไม่ครบต้องระบุช่องว่าง"
+    },
+    {
+      "id": "research_governance",
+      "name": "Research Governance",
+      "group": "B",
+      "status": "partial_prompt",
+      "sources": [
+        "skill://user/6ad09633b6208191b741a4d1c954f395/design-rct-gcp/SKILL.md"
+      ],
+      "triggers": [
+        "research governance",
+        "กำกับดูแลงานวิจัย"
+      ],
+      "support": [],
+      "project_installed": false,
+      "execution": "instruction_only_or_offline_asset",
+      "limitation": "ไม่ใช่ autonomous agent; ต้องอ่านต้นฉบับ/ยืนยันเครื่องมือก่อนใช้; ส่วนที่ไม่ครบต้องระบุช่องว่าง"
+    },
+    {
+      "id": "ha",
+      "name": "HA Quality Management",
+      "group": "C",
+      "status": "offline_asset",
+      "sources": [
+        "ha_quality_team_v2/prompts/master.md",
+        "ha_quality_team_v2/ha_quality/workflow.py"
+      ],
+      "triggers": [
+        "ha",
+        "คุณภาพโรงพยาบาล",
+        "มาตรฐาน ha"
+      ],
+      "support": [
+        "citation"
+      ],
+      "project_installed": false,
+      "execution": "instruction_only_or_offline_asset",
+      "limitation": "ไม่ใช่ autonomous agent; ต้องอ่านต้นฉบับ/ยืนยันเครื่องมือก่อนใช้; ส่วนที่ไม่ครบต้องระบุช่องว่าง"
+    },
+    {
+      "id": "survey",
+      "name": "Internal Survey / Clinical Tracer",
+      "group": "C",
+      "status": "offline_asset",
+      "sources": [
+        "ha_quality_team_v2/ha_quality/survey.py",
+        "ha_quality_team_v2/prompts/internal_survey_panel.md",
+        "ha_quality_team_v2/prompts/surveyor_facilitator.md"
+      ],
+      "triggers": [
+        "internal survey",
+        "tracer",
+        "เยี่ยมสำรวจ"
+      ],
+      "support": [
+        "ha",
+        "kpi"
+      ],
+      "project_installed": false,
+      "execution": "instruction_only_or_offline_asset",
+      "limitation": "ไม่ใช่ autonomous agent; ต้องอ่านต้นฉบับ/ยืนยันเครื่องมือก่อนใช้; ส่วนที่ไม่ครบต้องระบุช่องว่าง"
+    },
+    {
+      "id": "rca",
+      "name": "Root Cause Analysis",
+      "group": "C",
+      "status": "partial_prompt",
+      "sources": [
+        "ha_quality_team_v2/prompts/agent_briefs.md"
+      ],
+      "triggers": [
+        "rca",
+        "root cause",
+        "รากสาเหตุ",
+        "อุบัติการณ์"
+      ],
+      "support": [
+        "risk",
+        "safety",
+        "ha"
+      ],
+      "project_installed": false,
+      "execution": "instruction_only_or_offline_asset",
+      "limitation": "ไม่ใช่ autonomous agent; ต้องอ่านต้นฉบับ/ยืนยันเครื่องมือก่อนใช้; ส่วนที่ไม่ครบต้องระบุช่องว่าง"
+    },
+    {
+      "id": "risk",
+      "name": "Clinical Risk Management",
+      "group": "C",
+      "status": "partial_prompt",
+      "sources": [
+        "ha_quality_team_v2/prompts/agent_briefs.md"
+      ],
+      "triggers": [
+        "clinical risk",
+        "ความเสี่ยงทางคลินิก"
+      ],
+      "support": [
+        "safety"
+      ],
+      "project_installed": false,
+      "execution": "instruction_only_or_offline_asset",
+      "limitation": "ไม่ใช่ autonomous agent; ต้องอ่านต้นฉบับ/ยืนยันเครื่องมือก่อนใช้; ส่วนที่ไม่ครบต้องระบุช่องว่าง"
+    },
+    {
+      "id": "qi",
+      "name": "QI / PDSA",
+      "group": "C",
+      "status": "offline_asset",
+      "sources": [
+        "ha_quality_team_v2/templates/qi_plan.csv",
+        "ha_quality_team_v2/ha_quality/workflow.py"
+      ],
+      "triggers": [
+        "qi",
+        "pdsa",
+        "qi plan",
+        "แผนพัฒนาคุณภาพ"
+      ],
+      "support": [
+        "ha",
+        "kpi"
+      ],
+      "project_installed": false,
+      "execution": "instruction_only_or_offline_asset",
+      "limitation": "ไม่ใช่ autonomous agent; ต้องอ่านต้นฉบับ/ยืนยันเครื่องมือก่อนใช้; ส่วนที่ไม่ครบต้องระบุช่องว่าง"
+    },
+    {
+      "id": "safety",
+      "name": "Patient Safety",
+      "group": "C",
+      "status": "partial_prompt",
+      "sources": [
+        "ha_quality_team_v2/prompts/agent_briefs.md"
+      ],
+      "triggers": [
+        "patient safety",
+        "ความปลอดภัยผู้ป่วย"
+      ],
+      "support": [],
+      "project_installed": false,
+      "execution": "instruction_only_or_offline_asset",
+      "limitation": "ไม่ใช่ autonomous agent; ต้องอ่านต้นฉบับ/ยืนยันเครื่องมือก่อนใช้; ส่วนที่ไม่ครบต้องระบุช่องว่าง"
+    },
+    {
+      "id": "ebp",
+      "name": "Evidence-Based Practice",
+      "group": "C",
+      "status": "proposed",
+      "sources": [],
+      "triggers": [
+        "ebp",
+        "evidence-based practice",
+        "ปฏิบัติการพยาบาลตามหลักฐาน"
+      ],
+      "support": [
+        "literature",
+        "citation"
+      ],
+      "project_installed": false,
+      "execution": "instruction_only_or_offline_asset",
+      "limitation": "ไม่ใช่ autonomous agent; ต้องอ่านต้นฉบับ/ยืนยันเครื่องมือก่อนใช้; ส่วนที่ไม่ครบต้องระบุช่องว่าง"
+    },
+    {
+      "id": "workforce",
+      "name": "Nursing Workforce Management",
+      "group": "D",
+      "status": "proposed",
+      "sources": [],
+      "triggers": [
+        "อัตรากำลัง",
+        "workforce",
+        "จัดเวร"
+      ],
+      "support": [
+        "workload",
+        "kpi"
+      ],
+      "project_installed": false,
+      "execution": "instruction_only_or_offline_asset",
+      "limitation": "ไม่ใช่ autonomous agent; ต้องอ่านต้นฉบับ/ยืนยันเครื่องมือก่อนใช้; ส่วนที่ไม่ครบต้องระบุช่องว่าง"
+    },
+    {
+      "id": "workload",
+      "name": "Workload & Productivity",
+      "group": "D",
+      "status": "proposed",
+      "sources": [],
+      "triggers": [
+        "workload",
+        "productivity",
+        "ภาระงาน",
+        "ผลิตภาพ"
+      ],
+      "support": [
+        "kpi"
+      ],
+      "project_installed": false,
+      "execution": "instruction_only_or_offline_asset",
+      "limitation": "ไม่ใช่ autonomous agent; ต้องอ่านต้นฉบับ/ยืนยันเครื่องมือก่อนใช้; ส่วนที่ไม่ครบต้องระบุช่องว่าง"
+    },
+    {
+      "id": "kpi",
+      "name": "KPI Analysis",
+      "group": "D",
+      "status": "partial_prompt",
+      "sources": [
+        "ha_quality_team_v2/prompts/agent_briefs.md",
+        "ha_quality_team_v2/templates/evidence_matrix.csv"
+      ],
+      "triggers": [
+        "kpi",
+        "ตัวชี้วัด"
+      ],
+      "support": [],
+      "project_installed": false,
+      "execution": "instruction_only_or_offline_asset",
+      "limitation": "ไม่ใช่ autonomous agent; ต้องอ่านต้นฉบับ/ยืนยันเครื่องมือก่อนใช้; ส่วนที่ไม่ครบต้องระบุช่องว่าง"
+    },
+    {
+      "id": "competency",
+      "name": "Functional Competency",
+      "group": "D",
+      "status": "proposed",
+      "sources": [],
+      "triggers": [
+        "competency",
+        "สมรรถนะ"
+      ],
+      "support": [],
+      "project_installed": false,
+      "execution": "instruction_only_or_offline_asset",
+      "limitation": "ไม่ใช่ autonomous agent; ต้องอ่านต้นฉบับ/ยืนยันเครื่องมือก่อนใช้; ส่วนที่ไม่ครบต้องระบุช่องว่าง"
+    },
+    {
+      "id": "ortho",
+      "name": "PCT Orthopedics Management",
+      "group": "D",
+      "status": "partial_prompt",
+      "sources": [
+        "ha_quality_team_v2/docs/surveyor_facilitator.md",
+        "ha_quality_team_v2/examples/ortho_vte.json"
+      ],
+      "triggers": [
+        "pct",
+        "orthopedics",
+        "ออร์โธ",
+        "กระดูก"
+      ],
+      "support": [
+        "ha",
+        "kpi"
+      ],
+      "project_installed": false,
+      "execution": "instruction_only_or_offline_asset",
+      "limitation": "ไม่ใช่ autonomous agent; ต้องอ่านต้นฉบับ/ยืนยันเครื่องมือก่อนใช้; ส่วนที่ไม่ครบต้องระบุช่องว่าง"
+    },
+    {
+      "id": "dashboard",
+      "name": "Clinical Dashboard Analysis",
+      "group": "D",
+      "status": "proposed",
+      "sources": [],
+      "triggers": [
+        "dashboard",
+        "แดชบอร์ด"
+      ],
+      "support": [
+        "kpi"
+      ],
+      "project_installed": false,
+      "execution": "instruction_only_or_offline_asset",
+      "limitation": "ไม่ใช่ autonomous agent; ต้องอ่านต้นฉบับ/ยืนยันเครื่องมือก่อนใช้; ส่วนที่ไม่ครบต้องระบุช่องว่าง"
+    },
+    {
+      "id": "service",
+      "name": "Nursing Service Development",
+      "group": "D",
+      "status": "proposed",
+      "sources": [],
+      "triggers": [
+        "พัฒนาบริการพยาบาล",
+        "nursing service"
+      ],
+      "support": [
+        "qi",
+        "workforce"
+      ],
+      "project_installed": false,
+      "execution": "instruction_only_or_offline_asset",
+      "limitation": "ไม่ใช่ autonomous agent; ต้องอ่านต้นฉบับ/ยืนยันเครื่องมือก่อนใช้; ส่วนที่ไม่ครบต้องระบุช่องว่าง"
+    },
+    {
+      "id": "executive",
+      "name": "Executive Decision Support",
+      "group": "D",
+      "status": "proposed",
+      "sources": [],
+      "triggers": [
+        "ผู้บริหาร",
+        "executive",
+        "ตัดสินใจเชิงบริหาร"
+      ],
+      "support": [
+        "kpi"
+      ],
+      "project_installed": false,
+      "execution": "instruction_only_or_offline_asset",
+      "limitation": "ไม่ใช่ autonomous agent; ต้องอ่านต้นฉบับ/ยืนยันเครื่องมือก่อนใช้; ส่วนที่ไม่ครบต้องระบุช่องว่าง"
+    }
+  ]
+}

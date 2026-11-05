@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+work/
+.env
+*.secret
+patient_data/
+internal_documents/

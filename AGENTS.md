@@ -1,0 +1,11 @@
+# JEFF AI Support — repository instructions
+- Read PROJECT_CONTEXT.md, docs/jeff/INVENTORY_TH.md and chatgpt_project/skill_registry.json before changing routing.
+- Work on a feature branch. Never merge main without explicit user approval. Preserve legacy HA and portal paths.
+- ChatGPT Project is the primary interface. Do not add a website, model framework or duplicate Research V4 without locating its original sources.
+- Role prompts, keyword routes and offline plans are not autonomous agents or model execution. Separate source availability, installation, execution and validation status.
+- No identifiable patient/participant data, sensitive staff records, credentials or chat transcripts in git. Use synthetic examples. Pattern checks are not de-identification.
+- Use original authorized evidence; mark unverified clauses/citations. Clinical and EC decisions remain with accountable humans.
+- High-consequence output needs an explicit critical-review pass and human review; a second pass by the same model is not independent expert review.
+- Knowledge reuse requires source, version, scope, date, verifier and explicit authorized approval. Never persist conversations automatically.
+- Registry changes: update Markdown from JSON, test routing, ambiguity, follow-up corrections and source gaps. Run PYTHONPATH=ha_quality_team_v2 python -m unittest discover -s tests -v and PYTHONPATH=ha_quality_team_v2 python -m unittest discover -s ha_quality_team_v2/tests -v.
+- Report offline tests separately from ChatGPT acceptance tests. Never infer ChatGPT activation from repository files.
