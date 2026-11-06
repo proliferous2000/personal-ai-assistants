@@ -1,6 +1,6 @@
 {
-  "version": "0.1.0",
-  "audited_on": "2026-11-05",
+  "version": "0.2.0",
+  "audited_on": "2026-11-06",
   "runtime": "offline_policy_planner_not_ai_execution",
   "skills": [
     {
@@ -186,8 +186,10 @@
       "id": "ethics",
       "name": "Research Ethics Review",
       "group": "B",
-      "status": "proposed",
-      "sources": [],
+      "status": "partial_prompt",
+      "sources": [
+        "jeff/research-review.md"
+      ],
       "triggers": [
         "ec",
         "irb",
@@ -213,7 +215,8 @@
       "status": "partial_prompt",
       "sources": [
         "skill://user/6ad09633b6208191b741a4d1c954f395/design-rct-gcp/SKILL.md",
-        "skill://user/6ab4ae0dab3c8191985d31da946efdcf/nursing-research-partner/SKILL.md"
+        "skill://user/6ab4ae0dab3c8191985d31da946efdcf/nursing-research-partner/SKILL.md",
+        "jeff/research-review.md"
       ],
       "triggers": [
         "protocol",
@@ -330,13 +333,17 @@
       "group": "C",
       "status": "partial_prompt",
       "sources": [
-        "ha_quality_team_v2/prompts/agent_briefs.md"
+        "ha_quality_team_v2/prompts/agent_briefs.md",
+        "skill://user/6aed1a70f7048191b576513390e63507/review-medical-records/SKILL.md"
       ],
       "triggers": [
         "rca",
         "root cause",
         "รากสาเหตุ",
-        "อุบัติการณ์"
+        "อุบัติการณ์",
+        "5-tier",
+        "5 tier",
+        "5-tier risk review"
       ],
       "support": [
         "risk",
@@ -345,7 +352,7 @@
       ],
       "project_installed": false,
       "execution": "instruction_only_or_offline_asset",
-      "limitation": "ไม่ใช่ autonomous agent; ต้องอ่านต้นฉบับ/ยืนยันเครื่องมือก่อนใช้; ส่วนที่ไม่ครบต้องระบุช่องว่าง"
+      "limitation": "มีคู่มือ review-medical-records นอก repo; การจัดระดับต้องตรวจเกณฑ์ต้นฉบับและยืนยันการเข้าถึงใน Project"
     },
     {
       "id": "risk",
@@ -503,7 +510,8 @@
       "status": "partial_prompt",
       "sources": [
         "ha_quality_team_v2/docs/surveyor_facilitator.md",
-        "ha_quality_team_v2/examples/ortho_vte.json"
+        "ha_quality_team_v2/examples/ortho_vte.json",
+        "jeff/pct-ortho.md"
       ],
       "triggers": [
         "pct",
