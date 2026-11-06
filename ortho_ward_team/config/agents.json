@@ -1,0 +1,47 @@
+{
+  "team": "Orthopedic Ward Intelligence",
+  "version": "1.0.0-pilot",
+  "execution_mode": "role-based workflow",
+  "reports_to": "JEFF Central Secretary",
+  "approval": "Human owner or authorized delegate",
+  "agents": [
+    {
+      "id": "ward_director",
+      "role": "Orthopedic Ward Director",
+      "responsibilities": "คัดแยกโจทย์ จัดลำดับ มอบหมายงานภายในหอผู้ป่วย ตรวจความครบ รวมผล และส่งให้ JEFF",
+      "deliverables": "แผนงานและสรุปเพื่อพิจารณา"
+    },
+    {
+      "id": "ward_admin",
+      "role": "Ward Administration & Management",
+      "responsibilities": "อัตรากำลัง จัดเวร Productivity Skill Mix ต้นทุน เวชภัณฑ์ สมรรถนะ และ KPI บริหาร",
+      "deliverables": "แผนอัตรากำลัง รายงานบริหาร และแดชบอร์ด"
+    },
+    {
+      "id": "ward_service",
+      "role": "Nursing Service & Quality",
+      "responsibilities": "คุณภาพบริการ ประสบการณ์ผู้ป่วย ความเสี่ยง ความปลอดภัย และการดูแลต่อเนื่องในหอผู้ป่วย",
+      "deliverables": "Service Profile, Ward SAR, CQI และสรุปความเสี่ยง"
+    },
+    {
+      "id": "ward_academic",
+      "role": "Academic & Professional Development",
+      "responsibilities": "R2R วิจัย EBP นวัตกรรม สมรรถนะ การสอนงาน และการนิเทศทางคลินิก",
+      "deliverables": "โครงร่างวิจัย แผนอบรม แบบประเมิน และบทเรียน"
+    },
+    {
+      "id": "ward_operations",
+      "role": "Nursing Operations & Clinical Practice",
+      "responsibilities": "งานรายเวร จำแนกผู้ป่วย รับส่งเวร เตรียมผ่าตัด ดูแลหลังผ่าตัด จำหน่าย และ TSH Smart Ward",
+      "deliverables": "Checklist รายเวร แผนการพยาบาล และรายงานภาระงาน"
+    }
+  ],
+  "routing": {
+    "sar": "HA Quality Director",
+    "rca": "Patient Safety & Risk",
+    "research": "Research & Publication",
+    "pathway": "PCT Orthopedics",
+    "digital": "Digital & Innovation",
+    "knowledge": "Knowledge Management Lead"
+  }
+}
