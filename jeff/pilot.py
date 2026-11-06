@@ -22,6 +22,7 @@ FIELDS = {
     "assign": ("id", "assignee"),
     "finish": ("id", "feedback"),
     "propose": ("title", "lesson", "scope", "source", "source_version", "source_date"),
+    "review_queue": (),
     "review": ("id", "decision", "note"),
     "approve": ("id", "decision", "note"),
     "release": ("version", "card_ids"),
@@ -69,13 +70,15 @@ def execute(path, token, action, fields=None):
                         **{key: value for key, value in state.items() if key != "users"})
         if action == "tasks":
             return [row for row in state["tasks"].values() if row["sender"] == user or role == "admin"]
+        if action == "review_queue" and role == "reviewer":
+            return [card for card in state["cards"].values() if card["status"] == "pending"]
         if action == "pack":
             active = state["active"]
             if active is None:
                 return {"version": None, "registry_version": registry()["version"], "cards": []}
             release = state["releases"][active]
             return {"version": active, "registry_version": release["registry_version"], "cards": release["cards"]}
-        if action not in FIELDS or action in {"dashboard", "tasks", "pack"}:
+        if action not in FIELDS or action in {"dashboard", "tasks", "pack", "review_queue"}:
             raise PermissionError("Action unavailable")
         require(fields.get("synthetic") == "yes", "Confirm synthetic data only")
         data = {key: fields.get(key, "").strip() for key in FIELDS[action]}
@@ -151,7 +154,10 @@ def change(state, user, role, unit, action, data, now):
             require(len(set(ids)) == len(ids), "Duplicate cards")
             cards = [state["cards"].get(identifier) for identifier in ids]
             require(all(card and card["status"] == "approved" for card in cards), "All cards must be approved")
-            releases[version] = dict(cards=cards, created_at=now, created_by=user,
+            public_fields = ("id", "title", "lesson", "scope", "source", "source_version",
+                             "source_date", "reviewed_by", "reviewed_at", "approved_by", "approved_at")
+            snapshot = [{key: card[key] for key in public_fields} for card in cards]
+            releases[version] = dict(cards=snapshot, created_at=now, created_by=user,
                                      registry_version=registry()["version"])
         else:
             require(version in releases and version != state["active"], "Select a different existing release")
@@ -168,7 +174,7 @@ def form_page():
         inputs = "".join(f'<label>{key} <input name="{key}" required maxlength="2000"></label><br>'
                          for key in fields)
         confirmation = ('<label><input type="checkbox" name="synthetic" value="yes" required> ข้อมูลสมมติเท่านั้น</label>'
-                        if action not in {"tasks", "pack", "dashboard"} else "")
+                        if action not in {"tasks", "pack", "dashboard", "review_queue"} else "")
         forms.append(f'<details><summary>{action}</summary><form method="post" action="/{action}">'
                      f'<label>รหัสทดลอง <input type="password" name="token" required></label><br>'
                      f'{inputs}{confirmation}<button>ดำเนินการ</button></form></details>')
