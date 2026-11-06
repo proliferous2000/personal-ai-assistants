@@ -61,7 +61,11 @@ class PilotTests(unittest.TestCase):
         with self.assertRaises(PermissionError):
             self.act("staff-a", "review", id=first, decision="yes", note="Denied")
         self.assertEqual(self.act("staff-b", "pack")["cards"], [])
+        self.assertEqual(self.act("reviewer", "review_queue")[0]["id"], first)
+        with self.assertRaises(PermissionError):
+            self.act("staff-b", "review_queue")
         self.verify(first)
+        self.assertEqual(self.act("reviewer", "review_queue"), [])
         self.act("admin", "release", version="1.0.0", card_ids=first)
         second = self.card("B")
         self.verify(second)
@@ -71,6 +75,7 @@ class PilotTests(unittest.TestCase):
         self.act("admin", "rollback", version="1.0.0", note="Restore baseline")
         pack = self.act("staff-b", "pack")
         self.assertEqual([card["id"] for card in pack["cards"]], [first])
+        self.assertNotIn("reviewed_note", pack["cards"][0])
         self.assertIn("1.1.0", self.act("admin", "dashboard")["releases"])
 
     def test_rejection_and_self_approval(self):
