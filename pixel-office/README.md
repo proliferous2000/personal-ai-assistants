@@ -19,9 +19,43 @@ npm start
 
 ถ้าเครื่องหา executable ไม่พบ ให้กำหนด `CLAUDE_COMMAND` เป็น path ของ Claude executable ที่ติดตั้งไว้ เช่นใช้ตัวแปร environment ของ terminal นั้น หลีกเลี่ยงการตั้งเป็นข้อความคำสั่งรวม argument
 
-## เลือกเครื่องมือคิด: Claude Code หรือ OpenAI
+## เลือกเครื่องมือคิด: Claude Code, Codex หรือ OpenAI API
 
 ตั้งตัวแปร `ENGINE` ก่อนรัน ค่าปริยายคือ `claude`
+
+### ENGINE=codex: ใช้บัญชี ChatGPT ผ่าน Codex CLI
+
+**Windows PowerShell:** หลัง Pull origin ใน GitHub Desktop ให้เปิด PowerShell ในโฟลเดอร์ `pixel-office` แล้วรันทีละบรรทัด:
+
+```powershell
+npm.cmd install -g @openai/codex
+codex.cmd login
+codex.cmd login status
+npm.cmd run start:codex
+```
+
+เปิด http://127.0.0.1:3100 และลอง “สวัสดีเจฟ” ตามด้วย “ช่วยทบทวน SAR ออร์โธฯ” ต้องได้คำตอบใน Office จึงยืนยันการเชื่อมจริง เปิด PowerShell ค้างไว้ระหว่างใช้ หากติดตั้งใหม่แล้วไม่พบคำสั่งให้เปิด PowerShell ใหม่ ตัวเชื่อมรองรับ npm บน Windows โดยเรียกไฟล์ JavaScript ผ่าน Node โดยตรง ไม่เปิด shell เพื่อส่งโจทย์
+
+**macOS / Linux:**
+
+```bash
+npm install -g @openai/codex   # หรือวิธีติดตั้งตามเอกสาร OpenAI
+codex login                    # เลือก Sign in with ChatGPT
+codex login status             # ตรวจว่าล็อกอินแล้ว
+cd pixel-office && ENGINE=codex npm start
+```
+
+ตัวเลือกเสริม: `CODEX_MODEL` (ชื่อโมเดลที่แพ็กเกจของคุณใช้ได้), `CODEX_COMMAND` (path ของ codex)
+
+ข้อจำกัดที่ต้องรู้
+- ต้องเป็นแพ็กเกจ ChatGPT ที่รวม Codex (เช่น Plus/Pro) และ **ไม่ใช่การเชื่อมกับแชต ChatGPT** ระบบไม่เห็น Project, GPT หรือความจำในบัญชี
+- อย่าตั้ง `CODEX_API_KEY` หรือล็อกอินด้วย API key ถ้าต้องการใช้โควตาแพ็กเกจ เพราะจะคิดเงินตาม API
+- เรียก `codex exec --sandbox read-only` อ่านไฟล์ใน repo ได้แต่แก้ไฟล์ไม่ได้ Codex ไม่มีช่อง system prompt ที่ตรวจสอบแล้ว ระบบจึงใส่คำสั่งบทบาทไว้หน้าโจทย์
+- ทดสอบกับ Codex จำลองเท่านั้น **ยังไม่ได้ทดสอบกับ Codex จริง** รวมถึงการตีความ `codex login status` และการแสดงกิจกรรมโต๊ะ ต้องตรวจบนเครื่องที่ล็อกอินแล้ว
+
+อ้างอิง [การลงชื่อเข้าใช้ Codex](https://learn.chatgpt.com/docs/auth) และ [codex exec / Structured output](https://learn.chatgpt.com/docs/non-interactive-mode)
+
+### ENGINE=openai: เรียก OpenAI API
 
 ```bash
 # ใช้ OpenAI API (ต้องมีคีย์จาก OpenAI Platform และกำหนดโมเดลเอง)
@@ -59,6 +93,7 @@ HA แสดงตำแหน่งทั้งหมดจากข้อม�
 ## ไฟล์สำคัญ
 
 - `server.mjs` ให้บริการเว็บและประวัติบน localhost
+- `lib/codex.mjs` เรียก Codex CLI ด้วยบัญชี ChatGPT
 - `lib/openai.mjs` เรียก OpenAI Responses API (เลือกด้วย `ENGINE=openai`)
 - `lib/claude.mjs` เรียก CLI โดยส่งโจทย์ผ่าน stdin และอ่าน JSON events
 - `lib/workflow.mjs` เจฟจัดเส้นทาง → ตำแหน่งทำงาน → หัวหน้าทีมตรวจ → ส่งผล
@@ -96,3 +131,4 @@ npm test
 รุ่นนี้รับข้อความและอ่านไฟล์ที่ Claude มีสิทธิ์เข้าถึงผ่านเครื่องรัน การเชื่อม Drive, ประวัติ ChatGPT, แฟ้ม skill ที่อยู่นอก repo และ Research Team Master V4 ต้องตรวจแหล่งจริงและเชื่อมเพิ่มเติม ไม่มีการรับรองว่าความสามารถเหล่านั้นติดตั้งมาพร้อมโค้ดชุดนี้
 
 หากจะให้หลายคนใช้งานผ่านเครือข่าย ต้องเพิ่มระบบบัญชี สิทธิ์ และแยกข้อมูลผู้ใช้ก่อนเปลี่ยนการ bind เซิร์ฟเวอร์ ซึ่งขณะนี้กำหนดให้เปิดบนเครื่องรันเท่านั้น
+

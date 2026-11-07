@@ -21,7 +21,7 @@ export async function executeTask({messages, teams, run, emit, signal}) {
   });
   const team = teams.find(item => item.id === route.team);
   const desk = team?.desks.find(item => item.id === route.desk);
-  if (!team || !desk || typeof route.message !== 'string') throw new Error('Claude เลือกโต๊ะที่ไม่มีในทะเบียน');
+  if (!team || !desk || typeof route.message !== 'string') throw new Error('AI เลือกโต๊ะที่ไม่มีในทะเบียน');
   if (team.id === 'jeff') {
     emit({type:'result',team:'jeff',desk:'secretary',state:'awaiting_user',text:route.message});
     return;
@@ -48,3 +48,4 @@ export async function executeTask({messages, teams, run, emit, signal}) {
   emit({type:'result',team:team.id,desk:leader.id,
     state:review.status === 'ready' ? 'ready' : 'awaiting_user',text:review.result});
 }
+

@@ -150,3 +150,108 @@ test('health endpoint reports engine config without exposing the API key', async
   assert.doesNotMatch(JSON.stringify(health) + await get('/api/state'), /sk-secret-value/);
   await assert.rejects(startOffice({port: 0, dataDir: dir, registryPath, engine: 'nope'}), /ENGINE/);
 });
+
+
+import {runCodex, codexStatus, codexInvocation} from '../lib/codex.mjs';
+const fakeCodex = `
+import {writeFileSync} from 'node:fs';
+const a = process.argv.slice(2);
+if (a[0] === '--version') { console.log('codex-cli 9.9.9'); process.exit(0); }
+if (a[0] === 'login') process.exit(process.env.FAKE_LOGGED_OUT ? 1 : 0);
+let input = ''; process.stdin.on('data', c => input += c);
+process.stdin.on('end', () => {
+  writeFileSync(process.env.FAKE_RECORD, JSON.stringify({args: a, input}));
+  console.log(JSON.stringify({type: 'item.started', item: {type: 'command_execution'}}));
+  if (process.env.FAKE_FAIL) process.exit(2);
+  const out = a[a.indexOf('-o') + 1];
+  if (out && !process.env.FAKE_EMPTY) writeFileSync(out, process.env.FAKE_FINAL || 'ผลจาก codex');
+});`;
+test('Codex adapter runs read-only, sends role+prompt on stdin, reads final message file', async t => {
+  const {dir} = await fixture(t);
+  const script = join(dir, 'fake-codex.mjs'), record = join(dir, 'rec.json');
+  await writeFile(script, fakeCodex);
+  process.env.FAKE_RECORD = record;
+  t.after(() => {for (const k of ['FAKE_RECORD','FAKE_FINAL','FAKE_FAIL','FAKE_EMPTY','FAKE_LOGGED_OUT']) delete process.env[k];});
+  const base = {command: process.execPath, prefix: [script], cwd: dir, system: 'บทบาท-X', prompt: 'โจทย์-Y'};
+  const activity = [];
+  assert.equal(await runCodex({...base, onActivity: a => activity.push(a)}), 'ผลจาก codex');
+  const rec = JSON.parse(await readFile(record, 'utf8'));
+  assert.deepEqual(rec.args.slice(0, 3), ['exec', '--json', '--sandbox']);
+  assert.equal(rec.args[rec.args.indexOf('--sandbox') + 1], 'read-only');
+  assert.equal(rec.args.at(-1), '-');
+  assert.match(rec.input, /บทบาท-X[\s\S]*โจทย์-Y/);
+  assert.deepEqual(activity, ['command_execution']);
+  process.env.FAKE_FINAL = '{"team":"ha","desk":"d","message":"m"}';
+  const routed = await runCodex({...base, schema: {type: 'object'}});
+  assert.equal(routed.team, 'ha');
+  assert.ok(JSON.parse(await readFile(record, 'utf8')).args.includes('--output-schema'));
+});
+test('Codex adapter and status fail visibly', async t => {
+  const {dir} = await fixture(t);
+  const script = join(dir, 'fake-codex.mjs');
+  await writeFile(script, fakeCodex);
+  process.env.FAKE_RECORD = join(dir, 'rec.json');
+  t.after(() => {for (const k of ['FAKE_RECORD','FAKE_FINAL','FAKE_FAIL','FAKE_EMPTY','FAKE_LOGGED_OUT']) delete process.env[k];});
+  const base = {command: process.execPath, prefix: [script], cwd: dir, system: 's', prompt: 'p'};
+  process.env.FAKE_FAIL = '1';
+  await assert.rejects(runCodex(base), /ยังไม่ส่งผลงานสำเร็จ/);
+  delete process.env.FAKE_FAIL; process.env.FAKE_EMPTY = '1';
+  await assert.rejects(runCodex(base), /คำตอบว่าง/);
+  delete process.env.FAKE_EMPTY; process.env.FAKE_FINAL = 'not json';
+  await assert.rejects(runCodex({...base, schema: {}}), /ไม่ครบ/);
+  await assert.rejects(runCodex({...base, command: join(dir, 'missing')}), /เปิด Codex CLI ไม่ได้/);
+  assert.equal((await codexStatus({command: process.execPath, prefix: [script]})).configured, true);
+  process.env.FAKE_LOGGED_OUT = '1';
+  assert.match((await codexStatus({command: process.execPath, prefix: [script]})).detail, /codex login/);
+  assert.equal((await codexStatus({command: join(dir, 'missing')})).configured, false);
+});
+
+test('Windows npm installation resolves without a command shell, including paths with spaces', async t => {
+  const {mkdir} = await import('node:fs/promises');
+  const {dir} = await fixture(t);
+  const bin = join(dir, 'npm folder');
+  const entry = join(bin, 'node_modules', '@openai', 'codex', 'bin', 'codex.js');
+  await mkdir(join(bin, 'node_modules', '@openai', 'codex', 'bin'), {recursive:true});
+  await writeFile(entry, '');
+  const expected = {command:process.execPath, prefix:[entry]};
+  assert.deepEqual(codexInvocation('codex', [], {platform:'win32', searchPath:bin}), expected);
+  assert.deepEqual(codexInvocation(join(bin, 'codex.cmd'), [], {platform:'win32'}), expected);
+  assert.deepEqual(codexInvocation('/custom/codex', [], {platform:'linux'}), {command:'/custom/codex', prefix:[]});
+});
+
+test('Codex does not launch a cancelled request', async () => {
+  const controller = new AbortController();
+  controller.abort();
+  await assert.rejects(runCodex({signal:controller.signal, command:'missing', prompt:'p', system:'s'}), /ยุติ/);
+});
+
+test('Codex CLI output flows through routing, worker, leader and persists in Office', async t => {
+  const {dir, registryPath} = await fixture(t);
+  const script = join(dir, 'flow-codex.mjs');
+  await writeFile(script, `
+    import {readFileSync,writeFileSync} from 'node:fs';
+    const args = process.argv.slice(2);
+    let input=''; process.stdin.on('data', c => input+=c);
+    process.stdin.on('end', () => {
+      const i=args.indexOf('--output-schema');
+      const schema=i<0 ? null : JSON.parse(readFileSync(args[i+1], 'utf8'));
+      const result=schema?.properties?.team ? JSON.stringify({team:'ha',desk:'sar',message:'ส่งให้ทีม HA'})
+        : schema ? JSON.stringify({status:'ready',result:'ผลงานผ่านหัวหน้าทีม HA'}) : 'ร่างจาก Codex';
+      console.log(JSON.stringify({type:'item.started',item:{type:'command_execution'}}));
+      writeFileSync(args[args.indexOf('-o')+1], result);
+    });
+  `);
+  const office = await startOffice({port:0, engine:'codex', dataDir:join(dir,'data'), registryPath,
+    run:options => runCodex({...options, cwd:dir, command:process.execPath, prefix:[script]})});
+  t.after(() => office.close());
+  const response = await fetch(office.url+'/api/chat', {method:'POST',
+    headers:{Origin:office.url,'Content-Type':'application/json'}, body:JSON.stringify({message:'ทบทวน SAR'})});
+  const events=(await response.text()).trim().split('\n').map(JSON.parse);
+  assert.equal(response.status,200);
+  assert.deepEqual(events.filter(e=>e.type==='stage').map(e=>e.state), ['routing','working','reviewing']);
+  assert.equal(events.at(-1).text, 'ผลงานผ่านหัวหน้าทีม HA');
+  const state=await (await fetch(office.url+'/api/state')).json();
+  assert.equal(state.engineId,'codex');
+  assert.equal(state.tasks[0].state,'ready');
+  assert.equal(state.messages.at(-1).content, events.at(-1).text);
+});

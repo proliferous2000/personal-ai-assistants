@@ -6,17 +6,19 @@ import {randomUUID} from 'node:crypto';
 import {loadTeams} from './lib/teams.mjs';
 import {runClaude, claudeStatus} from './lib/claude.mjs';
 import {runOpenAI, openaiStatus} from './lib/openai.mjs';
+import {runCodex, codexStatus} from './lib/codex.mjs';
 import {executeTask} from './lib/workflow.mjs';
 
 const root = dirname(fileURLToPath(import.meta.url));
 export const engines = {
   claude:{label:'Claude Code CLI', run:runClaude, status:claudeStatus},
+  codex:{label:'Codex CLI (OpenAI)', run:runCodex, status:codexStatus},
   openai:{label:'OpenAI API', run:runOpenAI, status:async () => openaiStatus()}
 };
 export async function startOffice({port = Number(process.env.PORT || 3100),
   dataDir = resolve(root,'data'), engine = process.env.ENGINE || 'claude', run, registryPath = resolve(root,'../ha_quality_team_v2/config/agents.json')} = {}) {
-  if (!engines[engine]) throw new Error('ENGINE ต้องเป็น claude หรือ openai');
-  run ??= engines[engine].run;
+  if (!engines[engine]) throw new Error('ENGINE ต้องเป็น claude, codex หรือ openai');
+  run ??= options => engines[engine].run({...options, cwd:root});
   const teams = await loadTeams(registryPath);
   await mkdir(dataDir,{recursive:true});
   const statePath = resolve(dataDir,'office.json');
