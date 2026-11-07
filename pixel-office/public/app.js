@@ -3,6 +3,10 @@ const labels = {routing:'เจฟกำลังจัดงาน',working:'�
 let teams = [];
 let tasks = [];
 let busy = false;
+let startedAt = 0;
+let clock;
+const stepOf = {routing:0,working:1,reviewing:2,ready:3,awaiting_user:3,blocked:-1,interrupted:-1};
+const tagOf = {working:'กำลังทำ',reviewing:'ตรวจทาน',ready:'พร้อมตรวจ',awaiting_user:'รอคำตอบ',blocked:'ติดขัด'};
 let selected;
 const stations = new Map();
 let activity = {team:'jeff',desk:'secretary'};
@@ -99,8 +103,35 @@ function animate(now) {
   if (station) drawCharacter(station.canvas,station.color,true,Math.floor(now / 180) % 2 ? 2 : 0);
   if (busy && !reduced) animation=requestAnimationFrame(animate);
 }
+let lastStep = 0;
+function renderStatus(state, team, desk) {
+  if (state in stepOf && stepOf[state] >= 0) lastStep = stepOf[state];
+  const failed = stepOf[state] < 0;
+  document.querySelectorAll('#steps li').forEach(item => {
+    const step = Number(item.dataset.step);
+    item.className = state === undefined ? '' : failed ? (step < lastStep ? 'done' : step === lastStep ? 'fail' : '')
+      : step < lastStep || (lastStep === 3 && step === 3) ? 'done' : step === lastStep ? 'now' : '';
+  });
+  stations.forEach(station => station.button.querySelector('.tag')?.remove());
+  const station = stations.get(team + '/' + desk);
+  if (station && tagOf[state]) station.button.append(el('i','tag' + (state === 'blocked' ? ' fail' : ''),tagOf[state]));
+}
+function tick() {
+  const seconds = Math.floor((Date.now() - startedAt) / 1000);
+  $('#elapsed').textContent = 'ใช้เวลา ' + String(Math.floor(seconds / 60)).padStart(2,'0') + ':' + String(seconds % 60).padStart(2,'0');
+}
+function showVerified() {
+  const last = tasks[0];
+  const when = last?.events?.length ? time.format(last.events.at(-1).time) : '';
+  $('#verified').textContent = !last ? 'ยังไม่เคยยืนยันการทำงานจริง ส่งโจทย์ทดสอบหนึ่งข้อเพื่อยืนยัน'
+    : ['blocked','interrupted'].includes(last.state) ? 'งานล่าสุดติดขัด ' + when + ' · ' + (last.error || '')
+    : ['ready','awaiting_user'].includes(last.state) && last.result ? 'ยืนยันแล้ว: งานล่าสุดได้ผลกลับมา ' + when
+    : 'งานล่าสุดยังไม่มีผลงานกลับมา · ' + (labels[last.state] || last.state);
+}
 function busyState(value) {
   busy = value;
+  clearInterval(clock);
+  if (value) {startedAt = Date.now(); tick(); clock = setInterval(tick,1000);} else if (startedAt) $('#elapsed').textContent += ' · สิ้นสุดรอบงาน';
   document.body.classList.toggle('busy',value);
   $('#send').disabled = value;
   cancelAnimationFrame(animation);
@@ -146,6 +177,8 @@ function applyEvent(event) {
   if (event.type==='result') task.result=event.text;
   if (event.type==='error') task.error=event.text;
   $('#activity').textContent=event.text;
+  if (event.state) renderStatus(event.state,event.team,event.desk);
+  showVerified();
   setActive(event.team,event.desk);
   if (event.type==='stage') message('assistant',event.text,'stage');
   if (event.type==='result' || event.type==='error') message('assistant',event.text);
@@ -161,7 +194,12 @@ async function load() {
   $('#messages').replaceChildren();
   if (!state.messages.length) message('assistant','ครับคุณหน่อง เจฟพร้อมรับโจทย์ครับ ผมจะประสานงานและรายงานผลจากหัวหน้าทีมให้');
   state.messages.forEach(item=>message(item.role,item.content));
-  $('#connection').textContent='Office เชื่อมต่อแล้ว · Claude Code บนเครื่อง';
+  $('#connection').textContent='Office เชื่อมต่อแล้ว · ' + state.engine;
+  $('#engine-label').textContent='เครื่องมือคิด: ' + state.engine;
+  showVerified();
+  fetch('/api/health').then(r => r.json()).then(h => {
+    $('#engine-detail').textContent = (h.configured ? '✓ ' : '✗ ') + h.detail + ' (ตรวจเฉพาะการตั้งค่า)';
+  }).catch(() => {$('#engine-detail').textContent = 'ตรวจการตั้งค่าไม่ได้';});
 }
 $('#close-dialog').onclick=()=>$('#task-dialog').close();
 $('#message').onkeydown=event=>{
@@ -177,6 +215,7 @@ $('#chat-form').onsubmit=async event=>{
   $('#message').dataset.lastTitle=text.slice(0,100);
   $('#message').value='';
   message('user',text);
+  lastStep=0;renderStatus();
   busyState(true);
   let finished=false;
   try {

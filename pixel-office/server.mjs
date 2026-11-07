@@ -4,12 +4,19 @@ import {resolve, dirname} from 'node:path';
 import {fileURLToPath, pathToFileURL} from 'node:url';
 import {randomUUID} from 'node:crypto';
 import {loadTeams} from './lib/teams.mjs';
-import {runClaude} from './lib/claude.mjs';
+import {runClaude, claudeStatus} from './lib/claude.mjs';
+import {runOpenAI, openaiStatus} from './lib/openai.mjs';
 import {executeTask} from './lib/workflow.mjs';
 
 const root = dirname(fileURLToPath(import.meta.url));
+export const engines = {
+  claude:{label:'Claude Code CLI', run:runClaude, status:claudeStatus},
+  openai:{label:'OpenAI API', run:runOpenAI, status:async () => openaiStatus()}
+};
 export async function startOffice({port = Number(process.env.PORT || 3100),
-  dataDir = resolve(root,'data'), run = runClaude, registryPath = resolve(root,'../ha_quality_team_v2/config/agents.json')} = {}) {
+  dataDir = resolve(root,'data'), engine = process.env.ENGINE || 'claude', run, registryPath = resolve(root,'../ha_quality_team_v2/config/agents.json')} = {}) {
+  if (!engines[engine]) throw new Error('ENGINE ต้องเป็น claude หรือ openai');
+  run ??= engines[engine].run;
   const teams = await loadTeams(registryPath);
   await mkdir(dataDir,{recursive:true});
   const statePath = resolve(dataDir,'office.json');
@@ -47,7 +54,11 @@ export async function startOffice({port = Number(process.env.PORT || 3100),
       }
       const path = new URL(req.url,'http://127.0.0.1').pathname;
       if (req.method === 'GET' && path === '/api/state') {
-        return json(res,200,{teams,...state,running:Boolean(running),engine:'Claude Code CLI'});
+        return json(res,200,{teams,...state,running:Boolean(running),engine:engines[engine].label,engineId:engine});
+      }
+      if (req.method === 'GET' && path === '/api/health') {
+        // ตรวจเฉพาะการตั้งค่า ไม่เรียกโมเดล และไม่เปิดเผยคีย์ ความพร้อมจริงยืนยันได้ด้วยการส่งโจทย์สำเร็จเท่านั้น
+        return json(res,200,{engine:engines[engine].label,engineId:engine,...await engines[engine].status()});
       }
       if (req.method === 'GET' && staticFiles[path]) {
         const [file,type] = staticFiles[path];
@@ -119,13 +130,13 @@ export async function startOffice({port = Number(process.env.PORT || 3100),
     server.once('error',reject);
     server.listen(port,'127.0.0.1',resolveListen);
   });
-  return {server,url:'http://127.0.0.1:' + server.address().port,
+  return {server,engine,url:'http://127.0.0.1:' + server.address().port,
     async close(){running?.abort(); await new Promise(done => server.close(done)); await saving;}};
 }
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
   const office = await startOffice();
   console.log('Office ดร.หน่อง ' + office.url);
-  console.log('ใช้ Claude Code จากเครื่องนี้ ส่งงานได้จากช่องคุยกับเจฟ');
+  console.log('เครื่องมือคิด: ' + engines[office.engine].label + ' · ส่งงานได้จากช่องคุยกับเจฟ');
   const close = () => office.close().then(() => process.exit(0));
   process.once('SIGINT',close);
   process.once('SIGTERM',close);

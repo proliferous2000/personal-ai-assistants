@@ -64,3 +64,15 @@ export function runClaude({prompt, system, schema, cwd, signal, onActivity = () 
     child.stdin.end(prompt);
   });
 }
+
+export function claudeStatus({command = process.env.CLAUDE_COMMAND || 'claude', prefix = []} = {}) {
+  return new Promise(resolve => {
+    let out = '';
+    const child = spawn(command, [...prefix, '--version'], {shell:false, windowsHide:true, timeout:8000});
+    child.stdout.on('data', chunk => {out += chunk;});
+    child.once('error', () => resolve({configured:false, detail:'ไม่พบคำสั่ง claude ตรวจการติดตั้งหรือกำหนด CLAUDE_COMMAND'}));
+    child.once('close', code => resolve(code === 0
+      ? {configured:true, detail:'พบ Claude Code ' + out.trim().slice(0, 40)}
+      : {configured:false, detail:'เรียก claude --version ไม่สำเร็จ'}));
+  });
+}

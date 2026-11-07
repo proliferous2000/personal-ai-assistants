@@ -9,12 +9,14 @@
 <script src="/app.js" type="module"></script>
 </head>
 <body>
-<header><a href="/" class="brand"><span class="logo">J</span><span>Office <b>ดร.หน่อง</b><small>PIXEL OFFICE · CLAUDE CODE</small></span></a><span id="connection" role="status">กำลังเชื่อม Office…</span></header>
+<header><a href="/" class="brand"><span class="logo">J</span><span>Office <b>ดร.หน่อง</b><small>PIXEL OFFICE</small></span></a><span id="connection" role="status">กำลังเชื่อม Office…</span></header>
 <main>
 <section class="office" aria-label="อาคาร Office ดร.หน่อง">
 <div class="office-title"><div><p>YOUR TEAM, IN ONE PLACE</p><h1>ทุกงาน เริ่มที่เจฟ</h1></div><span class="badge">6 FLOORS</span></div>
 <p class="intro">เจฟประสานงาน · หัวหน้าทีมกำกับคุณภาพ · เลือกโต๊ะเพื่อดูหน้าที่</p>
 <div class="building"><div class="roof">OFFICE ดร.หน่อง <span>✦</span></div><div id="floors"></div><div class="foundation"></div></div>
+<section id="status" class="status" aria-label="สถานะการทำงาน"><div class="status-row"><span class="status-engine" id="engine-label">เครื่องมือคิด: กำลังตรวจ…</span><span id="engine-detail"></span><span id="elapsed" aria-live="off"></span></div>
+<ol class="steps" id="steps"><li data-step="0">จัดงาน</li><li data-step="1">ทำงาน</li><li data-step="2">ตรวจทาน</li><li data-step="3">ส่งผล</li></ol><p id="verified" class="verified"></p></section>
 <div id="activity" class="activity" role="status">พร้อมรับโจทย์จากคุณหน่อง</div>
 <section id="desk-info" class="desk-info" aria-live="polite"><h2>เจฟ เลขากลาง</h2><p>ส่งโจทย์ในช่องแชต เจฟจะประสานทีมและรายงานผลให้ครับ</p></section>
 </section>
@@ -29,6 +31,6 @@
 </aside>
 </main>
 <dialog id="task-dialog"><div class="dialog-head"><h2 id="task-heading"></h2><button id="close-dialog" type="button">ปิด</button></div><p id="task-state"></p><ol id="task-events"></ol><pre id="task-result"></pre></dialog>
-<footer>ภาพเคลื่อนไหวตามสถานะการเรียก Claude Code · ผลงานผ่านบทบาทหัวหน้าทีมก่อนส่งให้คุณหน่องตรวจ</footer>
+<footer>ภาพเคลื่อนไหวตามสถานะการเรียกโมเดล · ผลงานผ่านบทบาทหัวหน้าทีมก่อนส่งให้คุณหน่องตรวจ</footer>
 </body>
 </html>
