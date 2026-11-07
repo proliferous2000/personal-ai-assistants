@@ -21,6 +21,15 @@
 <section id="desk-info" class="desk-info" aria-live="polite"><h2>เจฟ เลขากลาง</h2><p>ส่งโจทย์ในช่องแชต เจฟจะประสานทีมและรายงานผลให้ครับ</p></section>
 </section>
 <aside>
+<section class="tasks" aria-label="เชื่อมสถานะจาก ChatGPT">
+<h2>งานจากแชต ChatGPT</h2>
+<p id="bridge-status" role="status">กำลังเชื่อมช่องรับสถานะ…</p>
+<p>รับสถานะที่เจฟส่งผ่านเบราว์เซอร์ที่เชื่อมอยู่ ข้อความใน ChatGPT ไม่ถูกดึงเข้ามาเอง</p>
+<details id="bridge-panel"><summary>รับสถานะจาก ChatGPT</summary>
+<form id="bridge-form"><label for="bridge-event">ข้อมูลสถานะจากเจฟ</label>
+<textarea id="bridge-event" rows="3" maxlength="30000" required></textarea>
+<button type="submit">บันทึกสถานะจาก ChatGPT</button></form></details>
+</section>
 <section class="chat">
 <div class="chat-head"><span class="logo">J</span><div><h2>คุยกับเจฟ</h2><p>รับงาน · ประสาน · ติดตาม · รายงาน</p></div><span id="busy-dot"></span></div>
 <div id="messages" role="log" aria-label="บทสนทนากับเจฟ"></div>
@@ -31,6 +40,7 @@
 </aside>
 </main>
 <dialog id="task-dialog"><div class="dialog-head"><h2 id="task-heading"></h2><button id="close-dialog" type="button">ปิด</button></div><p id="task-state"></p><ol id="task-events"></ol><pre id="task-result"></pre></dialog>
-<footer>ภาพเคลื่อนไหวตามสถานะการเรียกโมเดล · ผลงานผ่านบทบาทหัวหน้าทีมก่อนส่งให้คุณหน่องตรวจ</footer>
+<footer>งานใน Office แสดงขั้นการเรียกโมเดล · งานจาก ChatGPT แสดงสถานะที่เจฟส่งมา พร้อมระบุแหล่งที่มา</footer>
 </body>
 </html>
+

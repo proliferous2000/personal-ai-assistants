@@ -3,6 +3,7 @@ const labels = {routing:'เจฟกำลังจัดงาน',working:'�
 let teams = [];
 let tasks = [];
 let busy = false;
+let externalBusy = false;
 let startedAt = 0;
 let clock;
 const stepOf = {routing:0,working:1,reviewing:2,ready:3,awaiting_user:3,blocked:-1,interrupted:-1};
@@ -20,7 +21,7 @@ function el(tag, className, text) {
 }
 function message(role, content, type) {
   const node = el('p','message ' + (type || role));
-  node.append(el('small','',role === 'user' ? 'คุณหน่อง' : type === 'stage' ? 'เส้นทางงาน' : 'เจฟ รายงานผล'),document.createTextNode(content));
+  node.append(el('small','',type === 'external' ? 'ChatGPT · สถานะที่เจฟส่งมา' : role === 'user' ? 'คุณหน่อง' : type === 'stage' ? 'เส้นทางงาน' : 'เจฟ รายงานผล'),document.createTextNode(content));
   $('#messages').append(node);
   $('#messages').scrollTop = $('#messages').scrollHeight;
 }
@@ -86,7 +87,7 @@ function setActive(teamId,deskId) {
     const active = key === teamId + '/' + deskId;
     station.button.classList.toggle('active',active);
     station.floor.classList.toggle('active',key.startsWith(teamId + '/'));
-    drawCharacter(station.canvas,station.color,active && busy);
+    drawCharacter(station.canvas,station.color,active && (busy || externalBusy));
     if (active) {
       const rooms = station.button.parentElement;
       // Reveal the receiving desk within its floor without moving the chat viewport.
@@ -101,7 +102,12 @@ let animation;
 function animate(now) {
   const station = stations.get(activity.team + '/' + activity.desk);
   if (station) drawCharacter(station.canvas,station.color,true,Math.floor(now / 180) % 2 ? 2 : 0);
-  if (busy && !reduced) animation=requestAnimationFrame(animate);
+  if ((busy || externalBusy) && !reduced) animation=requestAnimationFrame(animate);
+}
+function refreshAnimation() {
+  cancelAnimationFrame(animation);
+  if ((busy || externalBusy) && !reduced) animation=requestAnimationFrame(animate);
+  else stations.forEach(station => drawCharacter(station.canvas,station.color));
 }
 let lastStep = 0;
 function renderStatus(state, team, desk) {
@@ -124,6 +130,7 @@ function showVerified() {
   const last = tasks[0];
   const when = last?.events?.length ? time.format(last.events.at(-1).time) : '';
   $('#verified').textContent = !last ? 'ยังไม่เคยยืนยันการทำงานจริง ส่งโจทย์ทดสอบหนึ่งข้อเพื่อยืนยัน'
+    : last.source === 'chatgpt' ? 'ChatGPT · เจฟรายงานสถานะ: ' + (labels[last.state] || last.state) + ' · ' + when
     : ['blocked','interrupted'].includes(last.state) ? 'งานล่าสุดติดขัด ' + when + ' · ' + (last.error || '')
     : ['ready','awaiting_user'].includes(last.state) && last.result ? 'ยืนยันแล้ว: งานล่าสุดได้ผลกลับมา ' + when
     : 'งานล่าสุดยังไม่มีผลงานกลับมา · ' + (labels[last.state] || last.state);
@@ -134,9 +141,7 @@ function busyState(value) {
   if (value) {startedAt = Date.now(); tick(); clock = setInterval(tick,1000);} else if (startedAt) $('#elapsed').textContent += ' · สิ้นสุดรอบงาน';
   document.body.classList.toggle('busy',value);
   $('#send').disabled = value;
-  cancelAnimationFrame(animation);
-  if (value && !reduced) animation=requestAnimationFrame(animate);
-  if (!value) stations.forEach(station => drawCharacter(station.canvas,station.color));
+  refreshAnimation();
 }
 function renderTasks() {
   $('#task-count').textContent = tasks.length;
@@ -144,7 +149,7 @@ function renderTasks() {
   for (const task of tasks) {
     const button = el('button','',task.title);
     button.type='button';
-    button.append(el('small','',labels[task.state] || task.state));
+    button.append(el('small','',(task.source === 'chatgpt' ? 'ChatGPT · ' : 'Office · ') + (labels[task.state] || task.state)));
     button.onclick = () => {
       selected = task.id;
       showTask(task);
@@ -156,7 +161,7 @@ function renderTasks() {
 }
 function showTask(task) {
   $('#task-heading').textContent=task.title;
-  $('#task-state').textContent=labels[task.state] || task.state;
+  $('#task-state').textContent=(task.source === 'chatgpt' ? 'ChatGPT · สถานะที่เจฟส่งมา · ' : 'Office · ') + (labels[task.state] || task.state);
   $('#task-events').replaceChildren();
   for (const event of task.events || []) {
     const team=teams.find(team=>team.id===event.team);
@@ -169,10 +174,10 @@ function showTask(task) {
 function applyEvent(event) {
   let task=tasks.find(task=>task.id===event.taskId);
   if (!task) {
-    task={id:event.taskId,title:$('#message').dataset.lastTitle || 'งานใหม่',events:[]};
+    task={id:event.taskId,title:event.title || $('#message').dataset.lastTitle || 'งานใหม่',source:event.source,events:[]};
     tasks.unshift(task);
   }
-  task.events.push(event);
+  if (!event.eventId || !task.events.some(item=>item.eventId===event.eventId)) task.events.push(event);
   Object.assign(task,{state:event.state || task.state,team:event.team,desk:event.desk});
   if (event.type==='result') task.result=event.text;
   if (event.type==='error') task.error=event.text;
@@ -180,8 +185,9 @@ function applyEvent(event) {
   if (event.state) renderStatus(event.state,event.team,event.desk);
   showVerified();
   setActive(event.team,event.desk);
-  if (event.type==='stage') message('assistant',event.text,'stage');
-  if (event.type==='result' || event.type==='error') message('assistant',event.text);
+  if (event.source === 'chatgpt') message('assistant',event.text,'external');
+  else if (event.type==='stage') message('assistant',event.text,'stage');
+  else if (event.type==='result' || event.type==='error') message('assistant',event.text);
   renderTasks();
   if ($('#task-dialog').open && selected===task.id) showTask(task);
 }
@@ -246,8 +252,60 @@ $('#chat-form').onsubmit=async event=>{
     $('#message').focus();
   }
 };
-load().catch(error=>{
+const bridgeSeen=new Set();
+function receiveBridge(event) {
+  if (event.source !== 'chatgpt' || bridgeSeen.has(event.eventId)) return;
+  bridgeSeen.add(event.eventId);
+  if (bridgeSeen.size>1000) bridgeSeen.delete(bridgeSeen.values().next().value);
+  externalBusy=['routing','working','reviewing'].includes(event.state);
+  applyEvent(event);
+  refreshAnimation();
+  $('#bridge-status').textContent='รับสถานะจาก ChatGPT แล้ว · ' + time.format(event.time);
+}
+function stageBridgeLink() {
+  const payload=new URLSearchParams(location.hash.slice(1)).get('officeEvent');
+  if (!payload) return;
+  $('#bridge-panel').open=true;
+  $('#bridge-event').value=payload;
+  $('#bridge-status').textContent='มีสถานะจาก ChatGPT รอบันทึก';
+  history.replaceState(null,'',location.pathname+location.search);
+}
+window.addEventListener('hashchange',stageBridgeLink);
+$('#bridge-form').onsubmit=async event=>{
+  event.preventDefault();
+  try {
+    const input=JSON.parse($('#bridge-event').value);
+    const response=await fetch('/api/bridge/events',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(input)});
+    const result=await response.json();
+    if (!response.ok) throw new Error(result.error);
+    $('#bridge-status').textContent='บันทึกสถานะจาก ChatGPT แล้ว';
+    $('#bridge-event').value='';
+  } catch(error) {$('#bridge-status').textContent='บันทึกไม่ได้: ' + error.message;}
+};
+function connectBridge() {
+  const events=new EventSource('/api/events');
+  events.onopen=()=>{$('#bridge-status').textContent='ช่องรับสถานะพร้อม · รอเจฟส่งจากแชตที่เชื่อมเบราว์เซอร์';};
+  events.onerror=()=>{externalBusy=false; refreshAnimation(); $('#bridge-status').textContent='ช่องรับสถานะขาดการเชื่อมต่อ · กำลังเชื่อมใหม่';};
+  events.onmessage=async message=>{
+    try {
+      const update=JSON.parse(message.data);
+      if (update.type === 'sync') {
+        const response=await fetch('/api/state');
+        if (!response.ok) return;
+        const state=await response.json();
+        tasks=state.tasks; renderTasks(); showVerified();
+        const latest=tasks.filter(t=>t.source==='chatgpt').sort((a,b)=>(b.updated||0)-(a.updated||0))[0];
+        if (latest?.state === 'interrupted') {
+          externalBusy=false; refreshAnimation(); renderStatus('interrupted',latest.team,latest.desk);
+        } else if (latest?.events?.length) receiveBridge(latest.events.at(-1));
+      } else receiveBridge(update);
+    } catch {$('#bridge-status').textContent='อ่านสถานะไม่ได้ กรุณาโหลดหน้าใหม่';}
+  };
+  window.addEventListener('pagehide',()=>events.close(),{once:true});
+}
+load().then(()=>{stageBridgeLink(); connectBridge();}).catch(error=>{
   $('#connection').textContent='Office เชื่อมต่อไม่ได้';
   message('assistant',error.message);
   $('#send').disabled=true;
 });
+

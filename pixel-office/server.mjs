@@ -8,6 +8,7 @@ import {runClaude, claudeStatus} from './lib/claude.mjs';
 import {runOpenAI, openaiStatus} from './lib/openai.mjs';
 import {runCodex, codexStatus} from './lib/codex.mjs';
 import {executeTask} from './lib/workflow.mjs';
+import {acceptBridgeEvent} from './lib/bridge.mjs';
 
 const root = dirname(fileURLToPath(import.meta.url));
 export const engines = {
@@ -42,6 +43,12 @@ export async function startOffice({port = Number(process.env.PORT || 3100),
   }
   await persist();
   let running;
+  const viewers = new Set();
+  const publish = event => {
+    for (const client of viewers) {
+      if (!client.destroyed) client.write('data: ' + JSON.stringify(event) + '\n\n');
+    }
+  };
   const staticFiles = {
     '/':['public/index.html','text/html; charset=utf-8'],
     '/app.js':['public/app.js','text/javascript; charset=utf-8'],
@@ -62,6 +69,35 @@ export async function startOffice({port = Number(process.env.PORT || 3100),
         // ตรวจเฉพาะการตั้งค่า ไม่เรียกโมเดล และไม่เปิดเผยคีย์ ความพร้อมจริงยืนยันได้ด้วยการส่งโจทย์สำเร็จเท่านั้น
         return json(res,200,{engine:engines[engine].label,engineId:engine,...await engines[engine].status()});
       }
+      if (req.method === 'GET' && path === '/api/events') {
+        if (req.headers.origin && req.headers.origin !== 'http://' + req.headers.host) return json(res,403,{error:'Origin ไม่ถูกต้อง'});
+        res.writeHead(200,{'Content-Type':'text/event-stream; charset=utf-8','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'});
+        res.write('data: {"type":"sync"}\n\n');
+        viewers.add(res);
+        const keepalive=setInterval(() => res.write(': keepalive\n\n'),25000);
+        res.once('close',() => {clearInterval(keepalive); viewers.delete(res);});
+        return;
+      }
+      if (req.method === 'POST' && path === '/api/bridge/events') {
+        if (req.headers.origin !== 'http://' + req.headers.host || !req.headers['content-type']?.startsWith('application/json')) {
+          return json(res,403,{error:'รับสถานะผ่านหน้า Office บนเครื่องนี้เท่านั้น'});
+        }
+        let body='';
+        req.setEncoding('utf8');
+        for await (const chunk of req) {
+          body+=chunk;
+          if (Buffer.byteLength(body)>40000) return json(res,413,{error:'สถานะยาวเกินไป'});
+        }
+        let input;
+        try {input=JSON.parse(body);} catch {return json(res,400,{error:'JSON ไม่ถูกต้อง'});}
+        let accepted;
+        try {accepted=acceptBridgeEvent(input,teams,state.tasks);} catch(error) {return json(res,400,{error:error.message});}
+        await persist();
+        if (!accepted.duplicate) {
+          publish(accepted.event);
+        }
+        return json(res,200,{ok:true,duplicate:accepted.duplicate,taskId:accepted.task.id});
+      }
       if (req.method === 'GET' && staticFiles[path]) {
         const [file,type] = staticFiles[path];
         res.writeHead(200,{'Content-Type':type,'Content-Security-Policy':"default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self'; img-src 'self' data:; frame-ancestors 'none'",'X-Content-Type-Options':'nosniff'});
@@ -74,6 +110,7 @@ export async function startOffice({port = Number(process.env.PORT || 3100),
       }
       if (running) return json(res,409,{error:'มีงานกำลังทำอยู่ กรุณารอผลก่อนส่งข้อความถัดไป'});
       let text = '';
+      req.setEncoding('utf8');
       for await (const chunk of req) {
         text += chunk;
         if (Buffer.byteLength(text) > 20000) return json(res,413,{error:'ข้อความยาวเกินไป'});
@@ -133,7 +170,7 @@ export async function startOffice({port = Number(process.env.PORT || 3100),
     server.listen(port,'127.0.0.1',resolveListen);
   });
   return {server,engine,url:'http://127.0.0.1:' + server.address().port,
-    async close(){running?.abort(); await new Promise(done => server.close(done)); await saving;}};
+    async close(){running?.abort(); for(const client of viewers) client.end(); await new Promise(done => server.close(done)); await saving;}};
 }
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
   const office = await startOffice();
