@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#161b2b">
+<title>Office ดร.หน่อง · Pixel Office</title>
+<link rel="stylesheet" href="/style.css">
+<script src="/app.js" type="module"></script>
+</head>
+<body>
+<header><a href="/" class="brand"><span class="logo">J</span><span>Office <b>ดร.หน่อง</b><small>PIXEL OFFICE · CLAUDE CODE</small></span></a><span id="connection" role="status">กำลังเชื่อม Office…</span></header>
+<main>
+<section class="office" aria-label="อาคาร Office ดร.หน่อง">
+<div class="office-title"><div><p>YOUR TEAM, IN ONE PLACE</p><h1>ทุกงาน เริ่มที่เจฟ</h1></div><span class="badge">6 FLOORS</span></div>
+<p class="intro">เจฟประสานงาน · หัวหน้าทีมกำกับคุณภาพ · เลือกโต๊ะเพื่อดูหน้าที่</p>
+<div class="building"><div class="roof">OFFICE ดร.หน่อง <span>✦</span></div><div id="floors"></div><div class="foundation"></div></div>
+<div id="activity" class="activity" role="status">พร้อมรับโจทย์จากคุณหน่อง</div>
+<section id="desk-info" class="desk-info" aria-live="polite"><h2>เจฟ เลขากลาง</h2><p>ส่งโจทย์ในช่องแชต เจฟจะประสานทีมและรายงานผลให้ครับ</p></section>
+</section>
+<aside>
+<section class="chat">
+<div class="chat-head"><span class="logo">J</span><div><h2>คุยกับเจฟ</h2><p>รับงาน · ประสาน · ติดตาม · รายงาน</p></div><span id="busy-dot"></span></div>
+<div id="messages" role="log" aria-label="บทสนทนากับเจฟ"></div>
+<form id="chat-form"><label for="message">ข้อความถึงเจฟ</label><div class="compose"><textarea id="message" maxlength="10000" rows="3" placeholder="เจฟ ช่วยทบทวน SAR ออร์โธฯ ให้หน่อย" required></textarea><button id="send" type="submit" aria-label="ส่งข้อความ">↑</button></div><small>Enter ส่ง · Shift+Enter ขึ้นบรรทัดใหม่</small></form>
+<p class="privacy">ใช้ข้อความที่ปกปิดข้อมูลผู้ป่วยแล้ว ประวัติเก็บไว้ในเครื่องที่รัน Office</p>
+</section>
+<section class="tasks"><h2>งานใน Office <span id="task-count">0</span></h2><p>เปิดดูโจทย์ เส้นทาง และผลงานที่ตรวจทานแล้ว</p><div id="tasks"></div></section>
+</aside>
+</main>
+<dialog id="task-dialog"><div class="dialog-head"><h2 id="task-heading"></h2><button id="close-dialog" type="button">ปิด</button></div><p id="task-state"></p><ol id="task-events"></ol><pre id="task-result"></pre></dialog>
+<footer>ภาพเคลื่อนไหวตามสถานะการเรียก Claude Code · ผลงานผ่านบทบาทหัวหน้าทีมก่อนส่งให้คุณหน่องตรวจ</footer>
+</body>
+</html>
