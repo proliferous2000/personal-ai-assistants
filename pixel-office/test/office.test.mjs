@@ -23,16 +23,16 @@ test('worker output goes through its own team leader before delivery',async t=>{
   const {teams}=await fixture(t);
   const events=[];
   const calls=[];
-  const values=[{team:'ha',desk:'sar',message:'มอบงานโต๊ะ SAR'},'ร่างเพื่อทบทวน',{status:'ready',result:'หัวหน้าทีมตรวจแล้ว'}];
+  const values=[{level:2,supports:[],team:'ha',desk:'director',message:'มอบงานโต๊ะ SAR'},'ร่างเพื่อทบทวน',{evidenceChecks:['provided text checked'],limitations:[],decisions:[],status:'ready',result:'หัวหน้าทีมตรวจแล้ว'}];
   await executeTask({messages:conversation,teams,emit:event=>events.push(event),run:async call=>{
     calls.push(call);return values.shift();
   }});
   assert.equal(calls.length,3);
-  assert.equal(calls[0].tools,undefined);
+  assert.equal(calls[0].tools,false);
   assert.equal(calls[1].tools,true);
   assert.match(calls[2].system,/หัวหน้าทีม HA/);
   assert.deepEqual(events.map(event=>[event.team,event.desk,event.state]),[
-    ['jeff','secretary','routing'],['ha','sar','working'],['ha','director','reviewing'],['ha','director','ready']
+    ['jeff','secretary','routing'],['ha','director','working'],['ha','director','reviewing'],['ha','director','ready']
   ]);
   assert.equal(events.at(-1).text,'หัวหน้าทีมตรวจแล้ว');
 });
@@ -57,9 +57,9 @@ test('server streams and persists results, rejects cross-origin writes and seria
   let calls=0;
   const run=async()=>{
     calls++;
-    if (calls===1) {await gate;return {team:'ha',desk:'sar',message:'รับโจทย์'};}
+    if (calls===1) {await gate;return {level:2,supports:[],team:'ha',desk:'director',message:'รับโจทย์'};}
     if (calls===2) return 'draft';
-    return {status:'needs_info',result:'ขอหลักฐาน SAR เพิ่มครับ'};
+    return {evidenceChecks:['missing source'],limitations:['missing source'],decisions:[],status:'needs_info',result:'ขอหลักฐาน SAR เพิ่มครับ'};
   };
   const office=await startOffice({port:0,dataDir:join(dir,'data'),registryPath,run});
   t.after(()=>office.close());
@@ -77,6 +77,8 @@ test('server streams and persists results, rejects cross-origin writes and seria
   assert.match(output,/ขอหลักฐาน SAR เพิ่มครับ/);
   const stored=JSON.parse(await readFile(join(dir,'data','office.json'),'utf8'));
   assert.equal(stored.tasks[0].state,'awaiting_user');
+  assert.equal(stored.tasks[0].executionLog.filter(r=>r.status==='completed').length,3);
+  assert.equal(stored.tasks[0].executionLog.at(-1).phase,'acceptance');
   assert.equal(stored.messages.at(-1).content,'ขอหลักฐาน SAR เพิ่มครับ');
   assert.equal((await fetch(office.url+'/api/state')).status,200);
   assert.equal((await fetch(office.url+'/')).status,200);
@@ -235,8 +237,8 @@ test('Codex CLI output flows through routing, worker, leader and persists in Off
     process.stdin.on('end', () => {
       const i=args.indexOf('--output-schema');
       const schema=i<0 ? null : JSON.parse(readFileSync(args[i+1], 'utf8'));
-      const result=schema?.properties?.team ? JSON.stringify({team:'ha',desk:'sar',message:'ส่งให้ทีม HA'})
-        : schema ? JSON.stringify({status:'ready',result:'ผลงานผ่านหัวหน้าทีม HA'}) : 'ร่างจาก Codex';
+      const result=schema?.properties?.team ? JSON.stringify({level:2,supports:[],team:'ha',desk:'director',message:'ส่งให้ทีม HA'})
+        : schema ? JSON.stringify({evidenceChecks:['provided text checked'],limitations:[],decisions:[],status:'ready',result:'ผลงานผ่านหัวหน้าทีม HA'}) : 'ร่างจาก Codex';
       console.log(JSON.stringify({type:'item.started',item:{type:'command_execution'}}));
       writeFileSync(args[args.indexOf('-o')+1], result);
     });

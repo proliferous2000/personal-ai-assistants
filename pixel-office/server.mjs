@@ -124,7 +124,7 @@ export async function startOffice({port = Number(process.env.PORT || 3100),
       if (running) return json(res,409,{error:'มีงานกำลังทำอยู่'});
       const controller = new AbortController();
       running = controller;
-      const task = {id:randomUUID(),title:message.trim().slice(0,100),created:Date.now(),state:'routing',team:'jeff',desk:'secretary',events:[]};
+      const task = {id:randomUUID(),title:message.trim().slice(0,100),created:Date.now(),state:'routing',team:'jeff',desk:'secretary',events:[],executionLog:[]};
       state.tasks.unshift(task);
       state.tasks = state.tasks.slice(0,100);
       state.messages.push({role:'user',content:message.trim()});
@@ -148,7 +148,10 @@ export async function startOffice({port = Number(process.env.PORT || 3100),
         try {
           let messages = state.messages.slice(-10);
           while (JSON.stringify(messages).length > 26000 && messages.length > 1) messages.shift();
-          await executeTask({messages,teams,run,emit,signal:controller.signal});
+          await executeTask({messages,teams,run,emit,signal:controller.signal,onLog:async record => {
+            task.executionLog.push({...record,time:Date.now()});
+            await persist();
+          }});
         } catch (error) {
           task.state = 'blocked';
           task.error = error.message;
