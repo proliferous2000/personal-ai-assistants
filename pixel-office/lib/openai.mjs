@@ -11,7 +11,7 @@ export function openaiStatus(env = process.env) {
 export async function runOpenAI({prompt, system, schema, signal, tools = false,
   apiKey = process.env.OPENAI_API_KEY, model = process.env.OPENAI_MODEL,
   baseUrl = process.env.OPENAI_BASE_URL || 'https://api.openai.com/v1',
-  effort = process.env.OPENAI_REASONING_EFFORT}) {
+  effort = process.env.OPENAI_REASONING_EFFORT, onUsage = () => {}}) {
   if (!apiKey || !model) throw new Error(openaiStatus({OPENAI_API_KEY: apiKey, OPENAI_MODEL: model}).detail + ' บนเครื่องที่รัน Office');
   // store:false ไม่ให้ OpenAI เก็บ response ไว้ฝั่งเซิร์ฟเวอร์ตามค่าปริยาย
   const body = {model, instructions: system + (tools ? toolNote : ''), input: prompt, store: false};
@@ -35,6 +35,7 @@ export async function runOpenAI({prompt, system, schema, signal, tools = false,
   if (parts.some(part => part.type === 'refusal')) throw new Error('OpenAI ปฏิเสธการตอบโจทย์นี้');
   const text = parts.filter(part => part.type === 'output_text').map(part => part.text).join('').trim();
   if (!text) throw new Error('OpenAI ส่งคำตอบว่าง');
+  onUsage(data.usage || null);
   if (!schema) return text;
   try { return JSON.parse(text); } catch { throw new Error('OpenAI ส่งข้อมูลจัดเส้นทางไม่ครบ'); }
 }
