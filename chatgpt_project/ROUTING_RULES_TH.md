@@ -12,3 +12,8 @@
 `python -m jeff.router` รับ JSON ทาง stdin เท่านั้น ไม่มี network, LLM, persistent store หรือการเรียก Skill จริง ส่งเฉพาะ synthetic/de-identified input พร้อม `deidentified:true` ซึ่งเป็นคำรับรองจากผู้เรียก ไม่ใช่การอนุญาตทางองค์กร
 ใช้ phrase matching เป็น baseline ที่ตรวจสอบได้ ไม่ใช่ semantic classifier พร้อม production หากพบหลาย candidate จะส่ง `needs_context_review:true` ไม่ยืนยันความมั่นใจ คำปฏิเสธ/ภาษาอ้อมยังต้องให้โมเดลหรือมนุษย์พิจารณา
 follow-up ใช้ `previous` เฉพาะ primary/support IDs; ไม่บันทึกข้อความ ถ้ามีหลักฐานใหม่ให้ผู้ใช้ส่งสรุปที่ลดข้อมูลส่วนบุคคลแล้ว Project ทำขั้นตอนนี้ด้วยบทสนทนา ไม่อ่าน state Python เอง
+
+## เส้นทางเพิ่มใน Pilot
+- RCA หรือ 5-Tier → RCA ร่วมกับ risk/safety/HA ใช้คู่มือ review-medical-records ที่เข้าถึงได้จริง ถ้าขาดเกณฑ์ต้นฉบับให้คงสถานะรอตรวจการจัด Tier
+- ทบทวนโครงร่างเพื่อปรับแก้ → protocol และคู่มือ research-review.md ถ้าผู้ใช้ขอมุม EC ให้ ethics เป็นหลักและรักษาบทบาทคณะกรรมการ
+- PCT ออร์โธฯ → ortho และคู่มือ pct-ortho.md เลือกมุมเลขา/เครือข่าย/คุณภาพ/วิจัย/ตัวชี้วัดตามผลผลิต ไม่เปลี่ยนงานหลักเพราะพบคำว่า “ออร์โธฯ” ในบริบท

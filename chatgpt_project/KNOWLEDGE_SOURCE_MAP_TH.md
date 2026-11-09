@@ -15,3 +15,10 @@
 
 แหล่งที่ผู้ใช้นำเข้าเพิ่มต้องมี: source-ID, ชื่อ, เจ้าของ/สิทธิ์, version, publication/effective date, retrieval date, locator, read level, verifier, verification status, permitted scope, review date ไม่ฝังเอกสารมาตรฐานมีลิขสิทธิ์หรือเอกสารโรงพยาบาลโดยไม่มีสิทธิ์
 สถานะ source existence ไม่เท่ากับ verified evidence สำหรับข้อกล่าวอ้าง; approved knowledge ที่หมดอายุ ถูกเพิกถอน หรือหลักฐานใหม่ขัดแย้งต้องพัก trusted reuse และเก็บประวัติในที่จัดเก็บที่อนุญาต
+
+## แหล่งเพิ่มใน Pilot V1.0
+| ID | แหล่งและฉบับ | การใช้ | สถานะ |
+|---|---|---|---|
+| K09 | PR #4 @ 4e237255, jeff/research-review.md | ขั้นตอนทบทวนโครงร่าง | อ่านต้นฉบับและใช้เป็นคู่มือร่าง |
+| K10 | PR #5 @ dc9e642, jeff/pct-ortho.md | บทบาทงาน PCT ออร์โธฯ | อ่านต้นฉบับและใช้เป็นคู่มือร่าง |
+| K11 | review-medical-records SKILL.md ตาม URI ใน registry | แยก DISEASE/TRIGGER/RISK และเตรียมทบทวน 5-Tier | อ่านคำสั่งหลักใน Work; คู่มืออ้างอิงและเกณฑ์ต้นฉบับยังต้องตรวจตามโจทย์ |

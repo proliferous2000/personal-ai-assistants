@@ -20,3 +20,6 @@ PYTHONPATH=ha_quality_team_v2 python -m unittest discover -s ha_quality_team_v2/
 ```
 
 Offline router รับ JSON ผ่าน stdin: `{"text":"วิเคราะห์ QI Plan ตาม HA","deidentified":true}` แล้ว `python -m jeff.router` ไม่มี model/tool execution, network หรือ persistence; ใช้ข้อมูลจำลองเท่านั้น
+
+## JEFF Secretary Network V1.0 Pilot
+[คู่มือและสถาปัตยกรรม](docs/jeff/PILOT_V1_TH.md) · [ผลทดสอบและเกณฑ์รับงาน](docs/jeff/PILOT_ACCEPTANCE_TH.md) · [คำสั่งเจ้าหน้าที่](chatgpt_project/STAFF_ADDENDUM_TH.md)
