@@ -1,0 +1,63 @@
+{
+  "workflows": [
+    {
+      "id": "protocol",
+      "steps": [
+        "research_director",
+        "methodologist",
+        "evidence",
+        "measurement",
+        "statistician",
+        "ethics",
+        "reviewer"
+      ],
+      "output": "draft protocol + uncertainty register + references needing verification",
+      "gate": "investigator approval before EC submission"
+    },
+    {
+      "id": "rd",
+      "steps": [
+        "research_director",
+        "rd_specialist",
+        "evidence",
+        "measurement",
+        "statistician",
+        "ethics",
+        "reviewer"
+      ],
+      "output": "cycle plan, evaluation framework and revision criteria",
+      "gate": "EC approval/amendment before activities covered by protocol, as determined by EC"
+    },
+    {
+      "id": "rct",
+      "steps": [
+        "research_director",
+        "trial_specialist",
+        "methodologist",
+        "statistician",
+        "ethics",
+        "reviewer"
+      ],
+      "output": "SPIRIT-aligned protocol checklist, GCP risks and trial registration checklist",
+      "gate": "investigator and EC approval"
+    },
+    {
+      "id": "publication",
+      "steps": [
+        "research_director",
+        "statistician",
+        "manuscript",
+        "evidence",
+        "reviewer"
+      ],
+      "output": "draft IMRaD + verified-reference checklist + reviewer response map",
+      "gate": "author approval before journal submission"
+    }
+  ],
+  "audit_requirements": [
+    "Record input provenance and date",
+    "Separate verified facts, assumptions, gaps and recommendations",
+    "Require explicit human sign-off",
+    "Do not infer ethics approval or cite unverifiable articles"
+  ]
+}
