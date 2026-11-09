@@ -1,0 +1,262 @@
+[
+  {
+    "scenario": "R&D",
+    "synthetic": true,
+    "request": "ช่วยออกแบบงานวิจัย R&D",
+    "result": {
+      "mode": "OFFLINE_POLICY_SIMULATION",
+      "primary": "rd",
+      "support": [
+        "methodology",
+        "citation",
+        "reviewer"
+      ],
+      "candidates": [
+        "rd"
+      ],
+      "needs_context_review": false,
+      "context_inherited": false,
+      "capability_gaps": [
+        {
+          "id": "citation",
+          "status": "missing_original"
+        },
+        {
+          "id": "reviewer",
+          "status": "missing_original"
+        }
+      ],
+      "source_check_required": true,
+      "evidence_verified": false,
+      "review_required": true,
+      "review_kind": "same_model_checklist_then_authorized_human",
+      "independent_review_performed": false,
+      "chatgpt_connected": false,
+      "executed_skills": [],
+      "persisted": false,
+      "limitations": [
+        "phrase matching only; negation and intent need semantic review",
+        "source availability does not establish Project installation"
+      ]
+    }
+  },
+  {
+    "scenario": "EC",
+    "synthetic": true,
+    "request": "ช่วยวิจารณ์โครงการวิจัย R&D ในฐานะ EC",
+    "result": {
+      "mode": "OFFLINE_POLICY_SIMULATION",
+      "primary": "ethics",
+      "support": [
+        "rd",
+        "protocol",
+        "risk_benefit",
+        "consent",
+        "research_governance",
+        "reviewer",
+        "methodology",
+        "citation"
+      ],
+      "candidates": [
+        "rd",
+        "ethics",
+        "protocol"
+      ],
+      "needs_context_review": true,
+      "context_inherited": false,
+      "capability_gaps": [
+        {
+          "id": "ethics",
+          "status": "proposed"
+        },
+        {
+          "id": "protocol",
+          "status": "partial_prompt"
+        },
+        {
+          "id": "risk_benefit",
+          "status": "partial_prompt"
+        },
+        {
+          "id": "consent",
+          "status": "partial_prompt"
+        },
+        {
+          "id": "research_governance",
+          "status": "partial_prompt"
+        },
+        {
+          "id": "reviewer",
+          "status": "missing_original"
+        },
+        {
+          "id": "citation",
+          "status": "missing_original"
+        }
+      ],
+      "source_check_required": true,
+      "evidence_verified": false,
+      "review_required": true,
+      "review_kind": "same_model_checklist_then_authorized_human",
+      "independent_review_performed": false,
+      "chatgpt_connected": false,
+      "executed_skills": [],
+      "persisted": false,
+      "limitations": [
+        "phrase matching only; negation and intent need semantic review",
+        "source availability does not establish Project installation"
+      ]
+    }
+  },
+  {
+    "scenario": "RCA",
+    "synthetic": true,
+    "request": "วิเคราะห์ RCA อุบัติการณ์ทางคลินิก",
+    "result": {
+      "mode": "OFFLINE_POLICY_SIMULATION",
+      "primary": "rca",
+      "support": [
+        "risk",
+        "safety",
+        "ha",
+        "citation",
+        "reviewer"
+      ],
+      "candidates": [
+        "rca"
+      ],
+      "needs_context_review": false,
+      "context_inherited": false,
+      "capability_gaps": [
+        {
+          "id": "rca",
+          "status": "partial_prompt"
+        },
+        {
+          "id": "risk",
+          "status": "partial_prompt"
+        },
+        {
+          "id": "safety",
+          "status": "partial_prompt"
+        },
+        {
+          "id": "citation",
+          "status": "missing_original"
+        },
+        {
+          "id": "reviewer",
+          "status": "missing_original"
+        }
+      ],
+      "source_check_required": true,
+      "evidence_verified": false,
+      "review_required": true,
+      "review_kind": "same_model_checklist_then_authorized_human",
+      "independent_review_performed": false,
+      "chatgpt_connected": false,
+      "executed_skills": [],
+      "persisted": false,
+      "limitations": [
+        "phrase matching only; negation and intent need semantic review",
+        "source availability does not establish Project installation"
+      ]
+    }
+  },
+  {
+    "scenario": "QI",
+    "synthetic": true,
+    "request": "วิเคราะห์ QI Plan ตามมาตรฐาน HA",
+    "result": {
+      "mode": "OFFLINE_POLICY_SIMULATION",
+      "primary": "qi",
+      "support": [
+        "ha",
+        "kpi",
+        "citation",
+        "reviewer"
+      ],
+      "candidates": [
+        "ha",
+        "qi"
+      ],
+      "needs_context_review": true,
+      "context_inherited": false,
+      "capability_gaps": [
+        {
+          "id": "kpi",
+          "status": "partial_prompt"
+        },
+        {
+          "id": "citation",
+          "status": "missing_original"
+        },
+        {
+          "id": "reviewer",
+          "status": "missing_original"
+        }
+      ],
+      "source_check_required": true,
+      "evidence_verified": false,
+      "review_required": true,
+      "review_kind": "same_model_checklist_then_authorized_human",
+      "independent_review_performed": false,
+      "chatgpt_connected": false,
+      "executed_skills": [],
+      "persisted": false,
+      "limitations": [
+        "phrase matching only; negation and intent need semantic review",
+        "source availability does not establish Project installation"
+      ]
+    }
+  },
+  {
+    "scenario": "Workload",
+    "synthetic": true,
+    "request": "วิเคราะห์ Workload และ Productivity พยาบาล",
+    "result": {
+      "mode": "OFFLINE_POLICY_SIMULATION",
+      "primary": "workload",
+      "support": [
+        "kpi",
+        "citation",
+        "reviewer"
+      ],
+      "candidates": [
+        "workload"
+      ],
+      "needs_context_review": false,
+      "context_inherited": false,
+      "capability_gaps": [
+        {
+          "id": "workload",
+          "status": "proposed"
+        },
+        {
+          "id": "kpi",
+          "status": "partial_prompt"
+        },
+        {
+          "id": "citation",
+          "status": "missing_original"
+        },
+        {
+          "id": "reviewer",
+          "status": "missing_original"
+        }
+      ],
+      "source_check_required": true,
+      "evidence_verified": false,
+      "review_required": true,
+      "review_kind": "same_model_checklist_then_authorized_human",
+      "independent_review_performed": false,
+      "chatgpt_connected": false,
+      "executed_skills": [],
+      "persisted": false,
+      "limitations": [
+        "phrase matching only; negation and intent need semantic review",
+        "source availability does not establish Project installation"
+      ]
+    }
+  }
+]
